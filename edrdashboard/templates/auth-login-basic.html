@@ -1,0 +1,251 @@
+{% load static %}                                                                                   
+<!DOCTYPE html>
+<html
+  lang="en"
+  class="light-style customizer-hide"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>Login</title>
+
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/img/favicon/favicon.ico' %}" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="{% static 'assets/vendor/fonts/boxicons.css' %}" />
+
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{% static 'assets/vendor/css/core.css' %}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{% static 'assets/vendor/css/theme-default.css' %}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{% static 'assets/css/demo.css' %}" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{% static 'assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css' %}" />
+
+    <!-- Page CSS -->
+    <!-- Page -->
+    <link rel="stylesheet" href="{% static 'assets/vendor/css/pages/page-auth.css' %}" />
+    <!-- Helpers -->
+    <script src="{% static 'assets/vendor/js/helpers.js' %}"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+    <script src="{% static 'assets/js/config.js' %}"></script>
+    <style>
+      /* Fullscreen background carousel */
+      .login-carousel {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 1;
+        overflow: hidden;
+        background: #222;
+      }
+      .login-carousel img {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 1s;
+        z-index: 1;
+      }
+      .login-carousel img.active {
+        opacity: 1;
+        z-index: 2;
+        }
+      
+      /* Make sure content is above the background */
+      body {
+        position: relative;
+        z-index: 0;
+        padding-top: 0;
+        background: transparent;
+      }
+      .authentication-wrapper,
+      .authentication-inner {
+        position: relative;
+        z-index: 10;
+      }
+      /* Card semi-transparent background */
+      .authentication-wrapper .card {
+        background: rgba(255,255,255,0.85);
+        box-shadow: 0 4px 32px rgba(0,0,0,0.12);
+        border-radius: 16px;
+        backdrop-filter: blur(2px);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Carousel inside body -->
+    <div class="login-carousel">
+      <img src="{% static 'assets/img/illustrations/4.jpeg' %}" class="active" alt="Photogrametry" />
+      <img src="{% static 'assets/img/illustrations/2.jpg' %}" alt="lidar" />
+      <img src="{% static 'assets/img/illustrations/rfdb.png' %}" alt="rfdb" />
+    </div>
+    <!-- Content -->
+    <div class="container-xxl">
+      <div class="authentication-wrapper authentication-basic container-p-y">
+        <div class="authentication-inner">
+          <!-- Register -->
+          <div class="card">
+            <div class="card-body">
+              <!-- Logo -->
+              <div class="app-brand justify-content-center">
+              <a href="{% url 'dashboard' %}" class="app-brand-link gap-2">
+                <span class="app-brand-logo demo">
+                <img src="{% static 'assets/img/favicon/favicon.ico' %}" alt="EDR" width="40" />
+                </span>    
+              </a>
+
+
+
+             </div>
+   <!-- /Logo -->
+
+              <h4 class="mb-2">Welcome to EDR! 👋</h4>
+              <p class="mb-4">Please sign-in to your account and start the adventure</p>
+
+              <form id="formAuthentication" class="mb-3" action="#" method="POST">
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email or Username</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    name="email-username"
+                    placeholder="Enter your email or username"
+                    autofocus
+                    required
+                  />
+                </div>
+                <div class="mb-3 form-password-toggle">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <label class="form-label" for="password">Password</label>
+                  </div>
+                  <div class="input-group input-group-merge">
+                    <input
+                      type="password"
+                      id="password"
+                      class="form-control"
+                      name="password"
+                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                      required
+                      aria-describedby="password"
+                    />
+                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                  </div>
+                  <div class="d-flex justify-content-end mt-1">
+                    <a href="{% url 'forgot_password' %}">
+                      <small>Forgot Password?</small>
+                    </a>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="remember-me" />
+                    <label class="form-check-label" for="remember-me"> Remember Me </label>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+                </div>
+                <div id="login-error" class="alert alert-danger d-none" role="alert"></div>
+              </form>
+
+              <p class="text-center">
+                <span>New on our platform?</span>
+                <a href="{% url 'register' %}">
+                  <span>Create an account</span>
+                </a>
+              </p>
+
+
+              
+
+            </div> 
+            
+            
+
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+      <script src="{% static 'assets/vendor/libs/jquery/jquery.js' %}"></script>
+      <script src="{% static 'assets/vendor/libs/popper/popper.js' %}"></script>
+      <script src="{% static 'assets/vendor/js/bootstrap.js' %}"></script>
+      <script src="{% static 'assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+      <script src="{% static 'assets/vendor/js/menu.js' %}"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+
+    <!-- Main JS -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+
+    <!-- Page JS -->
+    <script>
+      // Simple carousel animation
+      const carouselImgs = document.querySelectorAll('.login-carousel img');
+      let current = 0;
+      setInterval(() => {
+        carouselImgs[current].classList.remove('active');
+        current = (current + 1) % carouselImgs.length;
+        carouselImgs[current].classList.add('active');
+      }, 2500);
+
+      // Login AJAX
+     // Login AJAX
+document.getElementById('formAuthentication').onsubmit = async function(e) {
+  e.preventDefault();
+  const username = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const errorDiv = document.getElementById('login-error');
+  errorDiv.classList.add('d-none');
+  errorDiv.textContent = '';
+
+  const res = await fetch('/login', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({username, password})
+  });
+  const data = await res.json();
+  if (data.success) {
+    window.location.href = '/index.html'; // or wherever you want to redirect
+  } else {
+    errorDiv.textContent = data.error || 'Login failed';
+    errorDiv.classList.remove('d-none');
+  }
+};
+    </script>
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+
+
+  </body>
+
+
+</html>
