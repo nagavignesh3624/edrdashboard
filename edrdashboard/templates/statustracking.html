@@ -199,7 +199,8 @@
                   <a href="{% url 'forgot_password' %}" class="menu-link">
                     <div data-i18n="Basic">Forgot Password</div>
                   </a>
-                </li>
+                </li>          
+
               </ul>
             </li>
             <!-- Tables -->
@@ -207,6 +208,26 @@
               <a href="#" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Tables">Tables</div>
+              </a>
+            </li>
+
+
+            <li class="menu-item">
+              <a href="http://43.240.66.191/start_new.aspx" class="menu-link" target="_blank">
+                <i class="menu-icon tf-icons bx bx-link"></i>
+                <div data-i18n="Spine HR">Spine HR</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="https://dev-msds.edrinfo.in/attendance" class="menu-link" target="_blank">
+                <i class="menu-icon tf-icons bx bx-link-external"></i>
+                <div data-i18n="Attendance Tracking">Attendance Tracking</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="http://192.168.9.231:9090/" class="menu-link" target="_blank">
+                <i class="menu-icon tf-icons bx bx-wrench"></i>
+                <div data-i18n="IT isuue Portal">IT isuue Portal</div>
               </a>
             </li>
           </ul>
@@ -319,7 +340,7 @@
                 </div>
                 <div class="status-row-7">
                   <div class="status-box-compact" style="background:#ff9f43;color:#fff;">
-                    <span style="font-weight:bold; font-size:1.5rem;">12</span>
+                    <span style="font-weight:bold; font-size:1.5rem;">{{ yts_count }}</span>
                     <div class="label" style="font-weight:bold; font-size:1rem;">Yts</div>
                   </div>
                   <div class="status-box-compact" style="background:#ffe066;color:#222;">
