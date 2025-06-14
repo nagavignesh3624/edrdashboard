@@ -1,0 +1,48 @@
+.status-miles-box {
+  width: 120px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  text-align: center; /* Ensure numbers and label are centered and fill the box */
+}
+.status-miles-box > span,
+.status-miles-box > div,
+.status-miles-box > strong {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.status-miles-box.delivered,
+.status-miles-box.undelivered {
+  width: 120px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: bold;
+}
+.status-miles-box.delivered {
+  background: #06e619;
+  color: #222;
+  font-weight: bold;
+}
+.status-miles-box.undelivered {
+  background: #66f5ff;
+  color: #222;
+  font-weight: bold;
+}
+.status-miles-label {
+  font-size: 0.7rem;
+  font-weight: normal;
+  
+}

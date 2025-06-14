@@ -14,7 +14,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-    <title>CR 64</title>
+    <title>TM Status</title>
     <meta name="description" content="" />
 
     <!-- Favicon -->
@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="{% static 'assets/vendor/css/core.css' %}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{% static 'assets/vendor/css/theme-default.css' %}" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{% static 'assets/css/demo.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/status-miles.css' %}" />
 
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="{% static 'assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css' %}" />
@@ -42,6 +43,36 @@
     <!-- Helpers -->
     <script src="{% static 'assets/vendor/js/helpers.js' %}"></script>
     <script src="{% static 'assets/js/config.js' %}"></script>
+    <style>
+      /* Change all status box sizes to 60px x 120px */
+      .status-box-compact {
+        width: 120px !important;
+        height: 60px !important;
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin-bottom: 4px;
+      }
+      .status-box-compact .label {
+        font-size: 0.7rem;
+        font-weight: normal;
+      }
+      /* Align 7 status boxes in a row, centered */
+      .status-row-7 {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: 16px;
+        margin-bottom: 16px;
+      }
+
+      
+    </style>
+
   </head>
   <body>
     <!-- Layout wrapper -->
@@ -91,14 +122,14 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="#" class="menu-link">
-                    <div data-i18n="NA_CM">DMP</div>
+                  <a href="{% url 'tm_dmp' %}" class="menu-link">
+                    <div data-i18n="tm_dmp">DMP</div>
                   </a>
                 </li>
                
                 <li class="menu-item">
-                  <a href="{% url 'blank' %}" class="menu-link">
-                    <div data-i18n="Blank">On_Hold</div>
+                  <a href="#" class="menu-link">
+                    <div data-i18n="NA_CM">On_Hold</div>
                   </a>
                 </li>
                
@@ -118,14 +149,14 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="#" class="menu-link">
-                    <div data-i18n="NA_CM">DMP</div>
+                  <a href="{% url 'tm_dmp' %}" class="menu-link">
+                    <div data-i18n="tm_dmp">DMP</div>
                   </a>
                 </li>
                
                 <li class="menu-item">
-                  <a href="{% url 'blank' %}" class="menu-link">
-                    <div data-i18n="Blank">On_Hold</div>
+                  <a href="#" class="menu-link">
+                    <div data-i18n="On_Hold">On_Hold</div>
                   </a>
                 </li>
                
@@ -274,221 +305,195 @@
           <!-- / Navbar -->
 
           <!-- Overall Status Section -->
-          <div class="container-xxl mt-4">
-            <h3 class="mb-4">Overall Status</h3>
-            <div class="d-flex flex-wrap gap-2 mb-4">
-              <!-- 65 status boxes -->
-              {% for i in boxes %}
-              <div style="width:50px;height:50px;background:#f5f5f9;border:1px solid #ccc;display:flex;align-items:center;justify-content:center;border-radius:8px;">
-                {{ i }}
-              </div>
-              {% endfor %}
-            </div>
-            <div class="row mb-4">
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#ff9f43;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  12
-                  <div style="font-size:1rem;font-weight:normal;">Yts</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#ffe066;color:#222;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  8
-                  <div style="font-size:1rem;font-weight:normal;">IP</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#28c76f;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  20
-                  <div style="font-size:1rem;font-weight:normal;">Comp</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#444;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  5
-                  <div style="font-size:1rem;font-weight:normal;">Hold</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#ea5455;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  3
-                  <div style="font-size:1rem;font-weight:normal;">QC Reject</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#ffd59e;color:#222;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  10
-                  <div style="font-size:1rem;font-weight:normal;">Rework Comp</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#ffe066;color:#222;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  7
-                  <div style="font-size:1rem;font-weight:normal;">Doubt</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Production Status Section -->
-          <div class="container-xxl mt-4">
-            <h3 class="mb-4">Production Status</h3>
-            <div class="row mb-4">
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#ff9f43;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  15
-                  <div style="font-size:1rem;font-weight:normal;">Yts</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#ffe066;color:#222;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  10
-                  <div style="font-size:1rem;font-weight:normal;">IP</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#28c76f;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  18
-                  <div style="font-size:1rem;font-weight:normal;">Comp</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#444;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  6
-                  <div style="font-size:1rem;font-weight:normal;">Hold</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#ea5455;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  2
-                  <div style="font-size:1rem;font-weight:normal;">QC Reject</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#ffd59e;color:#222;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  9
-                  <div style="font-size:1rem;font-weight:normal;">Rework Comp</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#ffe066;color:#222;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  4
-                  <div style="font-size:1rem;font-weight:normal;">Doubt</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Siloc Status Section -->
-          <div class="container-xxl mt-4">
-            <h3 class="mb-4">Siloc Status</h3>
-            <div class="row mb-4">
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#ff9f43;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  9
-                  <div style="font-size:1rem;font-weight:normal;">Yts</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#ffe066;color:#222;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  7
-                  <div style="font-size:1rem;font-weight:normal;">IP</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#28c76f;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  14
-                  <div style="font-size:1rem;font-weight:normal;">Comp</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#444;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  3
-                  <div style="font-size:1rem;font-weight:normal;">Hold</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#ea5455;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  1
-                  <div style="font-size:1rem;font-weight:normal;">QC Reject</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#ffd59e;color:#222;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  5
-                  <div style="font-size:1rem;font-weight:normal;">Rework Comp</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#ffe066;color:#222;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  2
-                  <div style="font-size:1rem;font-weight:normal;">Doubt</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- QC Status Section -->
-          <div class="container-xxl mt-4">
-            <h3 class="mb-4">QC Status</h3>
-            <div class="row mb-4">
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#ff9f43;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  11
-                  <div style="font-size:1rem;font-weight:normal;">Yts</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#ffe066;color:#222;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  6
-                  <div style="font-size:1rem;font-weight:normal;">IP</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#28c76f;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  13
-                  <div style="font-size:1rem;font-weight:normal;">Comp</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#444;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  4
-                  <div style="font-size:1rem;font-weight:normal;">Hold</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#ea5455;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  2
-                  <div style="font-size:1rem;font-weight:normal;">QC Reject</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#ffd59e;color:#222;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  8
-                  <div style="font-size:1rem;font-weight:normal;">Rework Comp</div>
-                </div>
-              </div>
-              <div class="col-auto">
-                <div style="width:130px;height:80px;background:#ffe066;color:#222;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:8px;font-weight:bold;font-size:2rem;">
-                  3
-                  <div style="font-size:1rem;font-weight:normal;">Doubt</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Process and Compare Charts Row -->
-          <div class="container-xxl mt-4 mb-4">
+          <div class="container-xxl mt-4" style="padding: 2px 8px;">
             <div class="row">
-              <!-- Process Chart 1 -->
-              <div class="col-12 col-lg-6 mb-4">
-                <div class="card">
-                  <h5 class="card-header"><b>Process Chart</b></h5>
-                  <div class="card-body">
-                    <div id="gaugeChart"></div>
+              <div class="col-12 col-lg-8">
+                <h3 class="mb-3" style="margin-bottom: 12px !important;">Overall Status</h3>
+                <div class="d-flex flex-wrap gap-2 mb-3" style="padding: 0;">
+                  <!-- 65 status boxes -->
+                  {% for i in boxes %}
+                  <div style="width:50px;height:50px;background:hsl(240, 25%, 97%);border:1px solid #ccc;display:flex;align-items:center;justify-content:center;border-radius:8px;">
+                    {{ i }}
+                  </div>
+                  {% endfor %}
+                </div>
+                <div class="status-row-7">
+                  <div class="status-box-compact" style="background:#ff9f43;color:#fff;">
+                    <span style="font-weight:bold; font-size:1.5rem;">12</span>
+                    <div class="label" style="font-weight:bold; font-size:1rem;">Yts</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#ffe066;color:#222;">
+                    <span style="font-weight:bold; font-size:1.5rem;">8</span>
+                    <div class="label" style="font-weight:bold; font-size:1rem;">IP</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#28c76f;color:#fff;">
+                    <span style="font-weight:bold; font-size:1.5rem;">20</span>
+                    <div class="label" style="font-weight:bold; font-size:1rem;">Comp</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#444;color:#fff;">
+                    <span style="font-weight:bold; font-size:1.5rem;">5</span>
+                    <div class="label" style="font-weight:bold; font-size:1rem;">Hold</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#ea5455;color:#fff;">
+                    <span style="font-weight:bold; font-size:1.5rem;">3</span>
+                    <div class="label" style="font-weight:bold; font-size:1rem;">QC Reject</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#ffd59e;color:#222;">
+                    <span style="font-weight:bold; font-size:1.5rem;">10</span>
+                    <div class="label" style="font-weight:bold; font-size:1rem;">Rework Comp</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#ffe066;color:#222;">
+                    <span style="font-weight:bold; font-size:1.5rem;">7</span>
+                    <div class="label" style="font-weight:bold; font-size:1rem;">Doubt</div>
                   </div>
                 </div>
+                <!-- Production Status Section -->
+                <h3 class="mb-3" style="margin-bottom: 12px !important;">Production Status</h3>
+                <div class="status-row-7">
+                  <div class="status-box-compact" style="background:#ff9f43;color:#fff;">
+                    15
+                    <div class="label">Yts</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#ffe066;color:#222;">
+                    10
+                    <div class="label">IP</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#28c76f;color:#fff;">
+                    18
+                    <div class="label">Comp</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#444;color:#fff;">
+                    6
+                    <div class="label">Hold</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#ea5455;color:#fff;">
+                    2
+                    <div class="label">QC Reject</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#ffd59e;color:#222;">
+                    9
+                    <div class="label">Rework Comp</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#ffe066;color:#222;">
+                    4
+                    <div class="label">Doubt</div>
+                  </div>
+                </div>
+                <!-- Siloc Status Section -->
+                 <h3 class="mb-3" style="margin-bottom: 12px !important;">Siloc Status</h3>
+                <div class="status-row-7">
+                  <div class="status-box-compact" style="background:#ff9f43;color:#fff;">
+                    9
+                    <div class="label">Yts</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#ffe066;color:#222;">
+                    7
+                    <div class="label">IP</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#28c76f;color:#fff;">
+                    14
+                    <div class="label">Comp</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#444;color:#fff;">
+                    3
+                    <div class="label">Hold</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#ea5455;color:#fff;">
+                    1
+                    <div class="label">QC Reject</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#ffd59e;color:#222;">
+                    5
+                    <div class="label">Rework Comp</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#ffe066;color:#222;">
+                    2
+                    <div class="label">Doubt</div>
+                  </div>
+                </div>
+
+                <!-- QC Status Section -->
+                 <h3 class="mb-3" style="margin-bottom: 12px !important;">QC Status</h3>
+                <div class="status-row-7">
+                  <div class="status-box-compact" style="background:#ff9f43;color:#fff;">
+                    11
+                    <div class="label">Yts</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#ffe066;color:#222;">
+                    6
+                    <div class="label">IP</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#28c76f;color:#fff;">
+                    13
+                    <div class="label">Comp</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#444;color:#fff;">
+                    4
+                    <div class="label">Hold</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#ea5455;color:#fff;">
+                    2
+                    <div class="label">QC Reject</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#ffd59e;color:#222;">
+                    8
+                    <div class="label">Rework Comp</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#ffe066;color:#222;">
+                    3
+                    <div class="label">Doubt</div>
+                  </div>
+                </div>    
+                
+                <!-- Siloc Path Association Status Section -->
+                 <h3 class="mb-3" style="margin-bottom: 12px !important;">Siloc Path Association</h3>
+                <div class="status-row-7">
+                  <div class="status-box-compact" style="background:#ff9f43;color:#fff;">
+                    11
+                    <div class="label">Yts</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#ffe066;color:#222;">
+                    6
+                    <div class="label">IP</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#28c76f;color:#fff;">
+                    13
+                    <div class="label">Comp</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#444;color:#fff;">
+                    4
+                    <div class="label">Hold</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#ea5455;color:#fff;">
+                    2
+                    <div class="label">QC Reject</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#ffd59e;color:#222;">
+                    8
+                    <div class="label">Rework Comp</div>
+                  </div>
+                  <div class="status-box-compact" style="background:#ffe066;color:#222;">
+                    3
+                    <div class="label">Doubt</div>
+                  </div>
+                </div>               
+
+
               </div>
-              <!-- Multiple Input Compare Chart -->
-              <div class="col-12 col-lg-6 mb-4">
-                <div class="card">
-                  <h5 class="card-header"><b>Multiple Input Compare Chart</b></h5>
+
+
+              
+
+              
+              <div class="col-12 col-lg-4">
+                <div class="card mb-4">
+                  <h5 class="card-header"><b>Input & Delivery Status</b></h5>
+                  <div class="card-body">
+                    <div id="processPieChart"></div>
+                  </div>
+                </div>
+                <div class="card mb-4">
+                  <h5 class="card-header"><b>Input & Delivery Tracker</b></h5>
                   <div class="card-body">
                     <div id="multiInputChart"></div>
                   </div>
@@ -496,42 +501,411 @@
               </div>
             </div>
           </div>
+
+          <!-- Priority Status Table Section -->
+          <div class="container-xxl mt-4" style="padding: 2px 8px;">
+            <div class="card mb-4">
+              <h5 class="card-header"><b>Priority Status Views</b></h5>
+              <div class="card-body">
+                <form class="row g-3 align-items-center mb-3">
+                  <div class="col-auto">
+                    <label for="prioritySelect" class="col-form-label"><b>Priority Options:</b></label>
+                  </div>
+                  <div class="col-auto">
+                    <select id="prioritySelect" class="form-select">
+                      <option selected>Overall Priority</option>
+                      <option>Priority 1</option>
+                      <option>Priority 2</option>
+                      <option>Priority 3</option>
+                      <option>Priority 4</option>
+                      <option>Priority 5</option>
+                    </select>
+                  </div>
+                </form>
+                <div class="table-responsive">
+                  <table class="table table-bordered table-sm mb-0" style="text-align:center;">
+                    <thead style="background: #f3f6fd;">
+                      <tr style="background: #e3eefd; color: #333;">
+                        <th>Status Type</th>
+                        <th>Yts</th>
+                        <th>IP</th>
+                        <th>Comp</th>
+                        <th>Hold</th>
+                        <th>QC Reject</th>
+                        <th>Rework Comp</th>
+                        <th>Doubt</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><b>Overall Priority Status</b></td>
+                        <td>12</td>
+                        <td>8</td>
+                        <td>20</td>
+                        <td>5</td>
+                        <td>3</td>
+                        <td>10</td>
+                        <td>7</td>
+                      </tr>
+                      <tr>
+                        <td><b>Production Status</b></td>
+                        <td>15</td>
+                        <td>10</td>
+                        <td>18</td>
+                        <td>6</td>
+                        <td>2</td>
+                        <td>9</td>
+                        <td>4</td>
+                      </tr>
+                      <tr>
+                        <td><b>QC Status</b></td>
+                        <td>11</td>
+                        <td>6</td>
+                        <td>13</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>8</td>
+                        <td>3</td>
+                      </tr>
+                      <tr>
+                        <td><b>Siloc Status</b></td>
+                        <td>9</td>
+                        <td>7</td>
+                        <td>14</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>5</td>
+                        <td>2</td>
+                      </tr>
+                      <tr>
+                        <td><b>Siloc Path Association Status</b></td>
+                        <td>11</td>
+                        <td>6</td>
+                        <td>13</td>
+                        <td>4</td>
+                        <td>2</td>
+                        <td>8</td>
+                        <td>3</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+                    
+        
+          <!-- Production, Siloc, QC, Path Association TL Tables Section -->
+          <div class="container-xxl mt-4" style="padding: 2px 8px;">
+            <div class="row">
+              <!-- First Row: Production TL & Siloc TL -->
+              <div class="col-12 col-lg-6 mb-4">
+                <div class="card" style="height: 340px; display: flex; flex-direction: column;">
+                  <h5 class="card-header"><b>Production TL</b></h5>
+                  <div class="card-body p-1" style="flex: 1 1 auto; overflow-y: auto;">
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-sm mb-0" style="text-align:center;">
+                        <thead style="background: #f3f6fd;">
+                          <tr style="background: #e3eefd; color: #333; text-align:center;">
+                            <th style="text-align:center;">TL Name</th>
+                            <th style="text-align:center;">Yts</th>
+                            <th style="text-align:center;">IP</th>
+                            <th style="text-align:center;">Comp</th>
+                            <th style="text-align:center;">Hold</th>
+                            <th style="text-align:center;">QC Reject</th>
+                            <th style="text-align:center;">Rework Comp</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr style="background: #f9fbff;">
+                            <td style="text-align:center;">Pradeep</td>
+                            <td style="text-align:center;">2</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">4</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">0</td>
+                            <td style="text-align:center;">2</td>
+                          </tr>
+                          <tr style="background: #f3f6fd;">
+                            <td style="text-align:center;">Jesin</td>
+                            <td style="text-align:center;">3</td>
+                            <td style="text-align:center;">2</td>
+                            <td style="text-align:center;">3</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">1</td>
+                          </tr>
+                          <tr style="background: #f9fbff;">
+                            <td style="text-align:center;">Elango</td>
+                            <td style="text-align:center;">4</td>
+                            <td style="text-align:center;">2</td>
+                            <td style="text-align:center;">5</td>
+                            <td style="text-align:center;">2</td>
+                            <td style="text-align:center;">0</td>
+                            <td style="text-align:center;">2</td>
+                          </tr>
+                          <tr style="background: #f3f6fd;">
+                            <td style="text-align:center;">Kamal</td>
+                            <td style="text-align:center;">3</td>
+                            <td style="text-align:center;">3</td>
+                            <td style="text-align:center;">4</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">2</td>
+                          </tr>
+                          <tr style="background: #f9fbff;">
+                            <td style="text-align:center;">Kannan</td>
+                            <td style="text-align:center;">3</td>
+                            <td style="text-align:center;">2</td>
+                            <td style="text-align:center;">2</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">0</td>
+                            <td style="text-align:center;">3</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6 mb-4">
+                <div class="card" style="height: 340px; display: flex; flex-direction: column;">
+                  <h5 class="card-header"><b>Siloc TL</b></h5>
+                  <div class="card-body p-1" style="flex: 1 1 auto; overflow-y: auto;">
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-sm mb-0" style="text-align:center;">
+                        <thead style="background: #f3f6fd;">
+                          <tr style="background: #e3eefd; color: #333; text-align:center;">
+                            <th style="text-align:center;">TL Name</th>
+                            <th style="text-align:center;">Yts</th>
+                            <th style="text-align:center;">IP</th>
+                            <th style="text-align:center;">Comp</th>
+                            <th style="text-align:center;">Hold</th>
+                            <th style="text-align:center;">QC Reject</th>
+                            <th style="text-align:center;">Rework Comp</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr style="background: #f9fbff;">
+                            <td style="text-align:center;">Anitha</td>
+                            <td style="text-align:center;">5</td>
+                            <td style="text-align:center;">3</td>
+                            <td style="text-align:center;">7</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">0</td>
+                            <td style="text-align:center;">2</td>
+                          </tr>
+                          <tr style="background: #f3f6fd;">
+                            <td style="text-align:center;">Thilaga</td>
+                            <td style="text-align:center;">4</td>
+                            <td style="text-align:center;">4</td>
+                            <td style="text-align:center;">7</td>
+                            <td style="text-align:center;">2</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">3</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <!-- Second Row: QC TL & Path Association TL -->
+              <div class="col-12 col-lg-6 mb-4">
+                <div class="card" style="height: 340px; display: flex; flex-direction: column;">
+                  <h5 class="card-header"><b>QC TL</b></h5>
+                  <div class="card-body p-1" style="flex: 1 1 auto; overflow-y: auto;">
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-sm mb-0" style="text-align:center;">
+                        <thead style="background: #f3f6fd;">
+                          <tr style="background: #e3eefd; color: #333; text-align:center;">
+                            <th style="text-align:center;">TL Name</th>
+                            <th style="text-align:center;">Yts</th>
+                            <th style="text-align:center;">IP</th>
+                            <th style="text-align:center;">Comp</th>
+                            <th style="text-align:center;">Hold</th>
+                            <th style="text-align:center;">QC Reject</th>
+                            <th style="text-align:center;">Rework Comp</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr style="background: #f9fbff;">
+                            <td style="text-align:center;">Rajapandi</td>
+                            <td style="text-align:center;">2</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">3</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">1</td>
+                          </tr>
+                          <tr style="background: #f3f6fd;">
+                            <td style="text-align:center;">Senthil</td>
+                            <td style="text-align:center;">2</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">2</td>
+                            <td style="text-align:center;">0</td>
+                            <td style="text-align:center;">0</td>
+                            <td style="text-align:center;">2</td>
+                          </tr>
+                          <tr style="background: #f9fbff;">
+                            <td style="text-align:center;">Nagavignesh</td>
+                            <td style="text-align:center;">3</td>
+                            <td style="text-align:center;">2</td>
+                            <td style="text-align:center;">3</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">0</td>
+                            <td style="text-align:center;">1</td>
+                          </tr>
+                          <tr style="background: #f3f6fd;">
+                            <td style="text-align:center;">Munirathinam</td>
+                            <td style="text-align:center;">2</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">2</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">1</td>
+                          </tr>
+                          <tr style="background: #f9fbff;">
+                            <td style="text-align:center;">Leo</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">2</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">0</td>
+                            <td style="text-align:center;">1</td>
+                          </tr>
+                          <tr style="background: #f3f6fd;">
+                            <td style="text-align:center;">Rajkumar</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">0</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">0</td>
+                            <td style="text-align:center;">0</td>
+                            <td style="text-align:center;">2</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6 mb-4">
+                <div class="card" style="height: 340px; display: flex; flex-direction: column;">
+                  <h5 class="card-header"><b>Path Association TL</b></h5>
+                  <div class="card-body p-1" style="flex: 1 1 auto; overflow-y: auto;">
+                    <div class="table-responsive">
+                      <table class="table table-bordered table-sm mb-0" style="text-align:center;">
+                        <thead style="background: #f3f6fd;">
+                          <tr style="background: #e3eefd; color: #333; text-align:center;">
+                            <th style="text-align:center;">TL Name</th>
+                            <th style="text-align:center;">Yts</th>
+                            <th style="text-align:center;">IP</th>
+                            <th style="text-align:center;">Comp</th>
+                            <th style="text-align:center;">Hold</th>
+                            <th style="text-align:center;">QC Reject</th>
+                            <th style="text-align:center;">Rework Comp</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr style="background: #f9fbff;">
+                            <td style="text-align:center;">Dhayanithi</td>
+                            <td style="text-align:center;">2</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">3</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">0</td>
+                            <td style="text-align:center;">1</td>
+                          </tr>
+                          <tr style="background: #f3f6fd;">
+                            <td style="text-align:center;">Praveeenkumar</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">2</td>
+                            <td style="text-align:center;">2</td>
+                            <td style="text-align:center;">0</td>
+                            <td style="text-align:center;">1</td>
+                            <td style="text-align:center;">1</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- / Priority Status Table Section -->
           <script>
             document.addEventListener("DOMContentLoaded", function() {
               if (window.ApexCharts) {
-                var options = {
+                // Process Pie Chart (Input Received, Delivered, Undelivered, Hold)
+                var processPieOptions = {
                   chart: {
-                    type: 'radialBar',
-                    height: 300
+                    type: 'pie',
+                    height: 280
                   },
-                  series: [67],
-                  labels: ['Completion'],
-                  plotOptions: {
-                    radialBar: {
-                      hollow: {
-                        size: '70%'
-                      },
-                      dataLabels: {
-                        name: {
-                          offsetY: 1,
-                          fontSize: '22px'
-                        },
-                        value: {
-                          fontSize: '30px'
-                        }
-                      }
+                  labels: ['Input Received', 'Delivered', 'Undelivered', 'Hold'],
+                  series: [200000, 100000, 110000, 40555], // Example values
+                  colors: ['#7367F0', '#28c76f', '#00cfe8', '#444'],
+                  legend: {
+                    position: 'bottom'
+                  },
+                  dataLabels: {
+                    enabled: true,
+                    formatter: function (val, opts) {
+                      return val.toFixed(1) + '%';
+                    },
+                    style: {
+                      fontSize: '12px',
+                      fontWeight: 'bold',
+                      align: 'center',
+                      colors: ['#fff', '#222', '#fff', '#fff']
+                    },
+                    dropShadow: {
+                      enabled: false
                     }
-                  },
-                  colors: ['#7367F0']
+                  }
                 };
-                var chart = new ApexCharts(document.querySelector("#gaugeChart"), options);
-                chart.render();
+                var processPieChart = new ApexCharts(document.querySelector("#processPieChart"), processPieOptions);
+                processPieChart.render();
+
+                // Show SweetAlert on pie chart div click
+                    document.querySelector("#processPieChart").addEventListener("click", function () {
+                      let labels = processPieOptions.labels;
+                      let series = processPieOptions.series;
+                      let total = series.reduce((a, b) => a + b, 0);
+                      let percentages = series.map(value => ((value / total) * 100).toFixed(1) + '%');
+
+                      // Start HTML table
+                      let html = '<table style="width:100%;text-align:left">';
+                      html += '<tr><th>Category</th><th style="padding-left:12px;">Miles</th><th style="padding-left:12px;">Percentage</th></tr>';
+
+                      for (let i = 0; i < labels.length; i++) {
+                        html += `<tr>
+                          <td><b>${labels[i]}</b></td>
+                          <td style="padding-left:12px;">${series[i]}</td>
+                          <td style="padding-left:12px;">${percentages[i]}</td>
+                        </tr>`;
+                      }
+
+                      html += '</table>';
+
+                      Swal.fire({
+                        title: 'Input & Delivery Miles Details',
+                        html: html,
+                        icon: 'info',
+                        position: 'center',
+                        confirmButtonText: 'Close'
+                      });
+                    });
+
 
                 // Multiple Input Compare Line Chart
                 var multiInputOptions = {
                   chart: {
                     type: 'line',
-                    height: 300
+                    height: 180
                   },
                   series: [
                     {
@@ -573,6 +947,8 @@
     <!-- endbuild -->
     <!-- Vendors JS -->
     <script src="{% static 'assets/vendor/libs/apex-charts/apexcharts.js' %}"></script>
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Main JS -->
     <script src="{% static 'assets/js/main.js' %}"></script>
     <!-- Page JS -->
@@ -684,12 +1060,7 @@
           };
           var chart6 = new ApexCharts(document.querySelector("#exampleChart6"), options6);
           chart6.render();
-
-
-
-
-
-          
+      
         }
       });
 

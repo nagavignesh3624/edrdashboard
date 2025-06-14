@@ -130,12 +130,12 @@
 
               <form id="formAuthentication" class="mb-3" action="#" method="POST">
                 <div class="mb-3">
-                  <label for="email" class="form-label">Email or Username</label>
+                  <label for="usarname" class="form-label">Email or Username</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="email"
-                    name="email-username"
+                    id="username"
+                    name="username"
                     placeholder="Enter your email or username"
                     autofocus
                     required
@@ -215,29 +215,8 @@
         carouselImgs[current].classList.add('active');
       }, 2500);
 
-      // Login AJAX
-     // Login AJAX
-document.getElementById('formAuthentication').onsubmit = async function(e) {
-  e.preventDefault();
-  const username = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  const errorDiv = document.getElementById('login-error');
-  errorDiv.classList.add('d-none');
-  errorDiv.textContent = '';
 
-  const res = await fetch('/login', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({username, password})
-  });
-  const data = await res.json();
-  if (data.success) {
-    window.location.href = '/index.html'; // or wherever you want to redirect
-  } else {
-    errorDiv.textContent = data.error || 'Login failed';
-    errorDiv.classList.remove('d-none');
-  }
-};
+      
     </script>
 
     <!-- Place this tag in your head or just before your close body tag. -->

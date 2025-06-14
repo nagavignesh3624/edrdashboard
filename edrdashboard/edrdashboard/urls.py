@@ -26,5 +26,6 @@ urlpatterns = [
     path('account/', views.account_page, name='account'),
     path('dashboard/', views.dashboard_page, name='dashboard'),
     path('statustracking/', views.statustracking_page, name='statustracking'),
-    path('blank/', views.blank, name='blank'),
+    path('tm_dmp', views.tm_dmp, name='tm_dmp'),
+    
 ]
