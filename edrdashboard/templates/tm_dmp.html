@@ -92,7 +92,7 @@
                 </li>
                 <li class="menu-item">
                   <a href="{% url 'tm_dmp' %}" class="menu-link">
-                    <div data-i18n="tm_dmp">DMP</div>
+                    <div data-i18n="tm_dmp">Summary</div>
                   </a>
                 </li>
                
@@ -119,7 +119,7 @@
                 </li>
                 <li class="menu-item">
                   <a href="{% url 'tm_dmp' %}" class="menu-link">
-                    <div data-i18n="tm_dmp">DMP</div>
+                    <div data-i18n="tm_dmp">Summary</div>
                   </a>
                 </li>
                
@@ -298,8 +298,104 @@
           <!-- Example Chart Section -->
           <div class="container-xxl mt-4">
             <div class="row">
+              <div class="col col-12 col-lg-6 mb-4">
+                
+                  <div class="card">
+                  <table style="border-collapse:collapse; width:100%; font-family:sans-serif; font-size:14px;">
+                      <tr>
+                        <th colspan="9" style="background:#3b5998; color:#fff; text-align:left; font-size:18px; padding:8px;">
+                          Summary of Turn Meanuvre Project status (Node Count)
+                        </th>
+                      </tr>
+                      <tr style="background:#d9edf7; color:#222;">
+                        <th>Process</th>
+                        <th>Received WU Count</th>
+                        <th>Ramp Extension</th>
+                        <th>Complex Turn</th>
+                        <th>Completed</th>
+                        <th>On-Hold</th>
+                        <th>Pending</th>
+                        <th>Delivered</th>
+                        <th>Planned Comp Date</th>
+                      </tr>
+                      <tr>
+                        <td>ATDB WU Creation</td>
+                        <td style="color:#00bcd4; font-weight:bold;">12,088</td>
+                        <td>8981</td>
+                        <td>3107</td>
+                        <td style="background:#00e676; color:#222; font-weight:bold;">10825</td>
+                        <td style="background:#f44336; color:#fff;">0</td>
+                        <td style="background:#fffde7; color:#222;">1,263</td>
+                        <td style="background:#2196f3; color:#fff;">10825</td>
+                        <td>Apr/17</td>
+                      </tr>
+                      <tr>
+                        <td>RFDB Production</td>
+                        <td style="color:#00bcd4; font-weight:bold;">13,568</td>
+                        <td>6326</td>
+                        <td>7242</td>
+                        <td style="background:#00e676; color:#222; font-weight:bold;">10689</td>
+                        <td style="background:#f44336; color:#fff;">0</td>
+                        <td style="background:#fffde7; color:#222;">2,879</td>
+                        <td style="background:#2196f3; color:#fff;">NA</td>
+                        <td>Apr/23</td>
+                      </tr>
+                      <tr>
+                        <td>SILOC Production</td>
+                        <td style="color:#00bcd4; font-weight:bold;">10689</td>
+                        <td>5727</td>
+                        <td>4962</td>
+                        <td style="background:#00e676; color:#222; font-weight:bold;">10689</td>
+                        <td style="background:#f44336; color:#fff;">0</td>
+                        <td style="background:#fffde7; color:#222;">0</td>
+                        <td style="background:#2196f3; color:#fff;">0</td>
+                        <td>Apr/24</td>
+                      </tr>
+                      <tr>
+                        <td>SILOC QC</td>
+                        <td style="color:#00bcd4; font-weight:bold;">10689</td>
+                        <td>5232</td>
+                        <td>5457</td>
+                        <td style="background:#00e676; color:#222; font-weight:bold;">10689</td>
+                        <td style="background:#f44336; color:#fff;">0</td>
+                        <td style="background:#fffde7; color:#222;">0</td>
+                        <td style="background:#2196f3; color:#fff;">NA</td>
+                        <td>Apr/25</td>
+                      </tr>
+                      <tr>
+                        <td>Path Association</td>
+                        <td style="color:#00bcd4; font-weight:bold;">10689</td>
+                        <td>5232</td>
+                        <td>5457</td>
+                        <td style="background:#00e676; color:#222; font-weight:bold;">10689</td>
+                        <td style="background:#f44336; color:#fff;">0</td>
+                        <td style="background:#fffde7; color:#222;">0</td>
+                        <td style="background:#2196f3; color:#fff;">NA</td>
+                        <td>Apr/30</td>
+                      </tr>
+                      <tr>
+                        <td>RFDB QC</td>
+                        <td style="color:#00bcd4; font-weight:bold;">10689</td>
+                        <td>5232</td>
+                        <td>5457</td>
+                        <td style="background:#00e676; color:#222; font-weight:bold;">9956</td>
+                        <td style="background:#f44336; color:#fff;">251</td>
+                        <td style="background:#fffde7; color:#222;">482</td>
+                        <td style="background:#2196f3; color:#fff;">9956</td>
+                        <td>Apr/30</td>
+                      </tr>
+                    </table>
+                
+                  </div>
+                </div>
+
+
+                
+
+              
               <!-- First Input Tracker -->
               <div class="col-12 col-lg-6 mb-4">
+                 
                 <div class="card">
                   <div class="d-flex justify-content-between align-items-center card-header">
                     <b>Input Tracker 1</b>

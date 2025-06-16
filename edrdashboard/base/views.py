@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from .models import WorkUnit
 import json
 import openpyxl
+from django.db.models import Count
 
 
 # Create your views here.
@@ -90,3 +91,4 @@ def download_workunit_excel_hold(request):
     response['Content-Disposition'] = 'attachment; filename=workunits.xlsx'
     wb.save(response)
     return response
+
