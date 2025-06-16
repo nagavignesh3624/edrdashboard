@@ -329,6 +329,9 @@
           </nav>
           <!-- / Navbar -->
 
+          <!-- Download Excel Button -->
+
+
           <!-- Overall Status Section -->
           <div class="container-xxl mt-4" style="padding: 2px 8px;">
             <div class="row">
@@ -343,34 +346,28 @@
                   {% endfor %}
                 </div>
                 <div class="status-row-7">
+                  <a href="{% url 'download_workunit_excel' %}" style="text-decoration: none;">
                   <div class="status-box-compact" style="background:#ff9f43;color:#fff;">
-                    <span style="font-weight:bold; font-size:1.5rem;">{{ yts_count }}</span>
-                    <div class="label" style="font-weight:bold; font-size:1rem;">Yts</div>
+                    <span style="font-weight:bold; font-size:1.5rem;">{{ input_count }}</span>
+                    <div class="label" style="font-weight:bold; font-size:1rem;">Input Received</div>
                   </div>
-                  <div class="status-box-compact" style="background:#ffe066;color:#222;">
-                    <span style="font-weight:bold; font-size:1.5rem;">8</span>
-                    <div class="label" style="font-weight:bold; font-size:1rem;">IP</div>
+                  </a>
+
+                  
+                  <div class="status-box-compact" style="background:hsl(123, 100%, 70%);color:#222;">
+                    <span style="font-weight:bold; font-size:1.5rem;">{{ delivered_count }}</span>
+                    <div class="label" style="font-weight:bold; font-size:1rem;">Delivered</div>
                   </div>
-                  <div class="status-box-compact" style="background:#28c76f;color:#fff;">
-                    <span style="font-weight:bold; font-size:1.5rem;">20</span>
-                    <div class="label" style="font-weight:bold; font-size:1rem;">Comp</div>
-                  </div>
+                  
                   <div class="status-box-compact" style="background:#444;color:#fff;">
-                    <span style="font-weight:bold; font-size:1.5rem;">5</span>
+                    <span style="font-weight:bold; font-size:1.5rem;">{{ hold_count }}</span>
                     <div class="label" style="font-weight:bold; font-size:1rem;">Hold</div>
                   </div>
-                  <div class="status-box-compact" style="background:#ea5455;color:#fff;">
-                    <span style="font-weight:bold; font-size:1.5rem;">3</span>
-                    <div class="label" style="font-weight:bold; font-size:1rem;">QC Reject</div>
+                  <div class="status-box-compact" style="background:#0e77da;color:#fff;">
+                    <span style="font-weight:bold; font-size:1.5rem;">{{ undelivered_count }}</span>
+                    <div class="label" style="font-weight:bold; font-size:1rem;">Undelivered</div>
                   </div>
-                  <div class="status-box-compact" style="background:#ffd59e;color:#222;">
-                    <span style="font-weight:bold; font-size:1.5rem;">10</span>
-                    <div class="label" style="font-weight:bold; font-size:1rem;">Rework Comp</div>
-                  </div>
-                  <div class="status-box-compact" style="background:#ffe066;color:#222;">
-                    <span style="font-weight:bold; font-size:1.5rem;">7</span>
-                    <div class="label" style="font-weight:bold; font-size:1rem;">Doubt</div>
-                  </div>
+                  
                 </div>
                 <!-- Production Status Section -->
                 <h3 class="mb-3" style="margin-bottom: 12px !important;">Production Status</h3>
@@ -864,15 +861,15 @@
           <script>
             document.addEventListener("DOMContentLoaded", function() {
               if (window.ApexCharts) {
-                // Process Pie Chart (Input Received, Delivered, Undelivered, Hold)
+                // Process Pie Chart ( Delivered, Undelivered, Hold)
                 var processPieOptions = {
                   chart: {
                     type: 'pie',
                     height: 280
                   },
-                  labels: ['Input Received', 'Delivered', 'Undelivered', 'Hold'],
-                  series: [200000, 100000, 110000, 40555], // Example values
-                  colors: ['#7367F0', '#28c76f', '#00cfe8', '#444'],
+                  labels: ['Delivered', 'Undelivered', 'Hold'],
+                  series: [{{ delivered_count|safe }}, {{ undelivered_count|safe }}, {{ hold_count|safe }}],
+                  colors: ['#28c76f', '#00cfe8', '#444'],
                   legend: {
                     position: 'bottom'
                   },

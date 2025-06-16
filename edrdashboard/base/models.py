@@ -13,6 +13,7 @@ class Employee(models.Model):
 
 class WorkUnit(models.Model):
     work_unit_id = models.BigIntegerField(primary_key=True)
+    delivery_status = models.CharField(max_length=50)
     # Add other fields as needed
 
     class Meta:

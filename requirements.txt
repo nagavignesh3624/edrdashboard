@@ -5,4 +5,5 @@ djangorestframework>=3.14
 django-filter>=23.0
 django-cors-headers>=4.0
 sqlparse>=0.4
+openpyxl>=3.0
 # Add other dependencies below as needed

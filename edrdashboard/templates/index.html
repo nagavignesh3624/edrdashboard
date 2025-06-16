@@ -413,55 +413,7 @@
                 </div>
               </div>
             </div>
-            <!-- Place the three new trackers below CR_64 -->
-            <div class="row">
-              <div class="col-md-6 mb-4">
-                <div class="card h-100">
-                  <div class="card-header d-flex justify-content-between align-items-center">
-                    <b>Active vs Inactive Users</b>
-                    <div class="dropdown">
-                      <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="activeUserDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span id="activeUserSelectedRange">Daily</span>
-                      </button>
-                      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="activeUserDropdown">
-                        <a class="dropdown-item" href="#" onclick="selectActiveUserRange('Daily')">Daily</a>
-                        <a class="dropdown-item" href="#" onclick="selectActiveUserRange('Monthly')">Monthly</a>
-                        <a class="dropdown-item" href="#" onclick="selectActiveUserRange('Yearly')">Yearly</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-body"><div id="activeInactiveChart" style="height:300px;"></div></div>
-                </div>
-              </div>
-              <div class="col-md-6 mb-4">
-                <div class="card h-100">
-                  <div class="card-header d-flex justify-content-between align-items-center">
-                    <b>Attendance (Present/Absent)</b>
-                    <div class="dropdown">
-                      <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="attendanceDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span id="attendanceSelectedRange">Daily</span>
-                      </button>
-                      <div class="dropdown-menu dropdown-menu-end" aria-labelledby="attendanceDropdown">
-                        <a class="dropdown-item" href="#" onclick="selectAttendanceStatusRange('Daily')">Daily</a>
-                        <a class="dropdown-item" href="#" onclick="selectAttendanceStatusRange('Monthly')">Monthly</a>
-                        <a class="dropdown-item" href="#" onclick="selectAttendanceStatusRange('Yearly')">Yearly</a>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-body"><div id="attendanceStatusChart" style="height:300px;"></div></div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12 mb-4">
-                <div class="card h-100">
-                  <div class="card-header"><b>Top 10 Leave Names</b></div>
-                  <div class="card-body">
-                    <ol id="topLeaveList" class="mb-0"></ol>
-                  </div>
-                </div>
-              </div>
-            </div>
+           
           </div>
           <script>
             function selectTmRange(range) {
@@ -763,76 +715,7 @@
                 gaugeChart.render();
               }
             });
-    </script>
+    </script>          
           
-          <script>
-            // Dropdown handlers
-            function selectActiveUserRange(range) {
-              document.getElementById('activeUserSelectedRange').textContent = range;
-              renderActiveInactiveChart(range);
-            }
-            function selectAttendanceStatusRange(range) {
-              document.getElementById('attendanceSelectedRange').textContent = range;
-              renderAttendanceStatusChart(range);
-            }
-            // Sample/mock data
-            const activeInactiveData = {
-              Daily: [80, 20],
-              Monthly: [1500, 200],
-              Yearly: [18000, 2500]
-            };
-            const attendanceStatusData = {
-              Daily: [70, 25, 5],
-              Monthly: [1400, 300, 50],
-              Yearly: [16000, 3500, 200]
-            };
-            const leaveNames = [
-              'Nagavignesh', 'Praveen', 'Thotta', 'Jegadeesh', 'Nanthakumar',
-              'Senthil', 'Raja', 'Gandeepan', 'Navejeevan', 'Pushpakumar','vigneshwar'
-            ];
-            // Chart rendering
-            function renderActiveInactiveChart(range) {
-              if (window.ApexCharts) {
-                const options = {
-                  chart: { type: 'pie', height: 300 },
-                  series: activeInactiveData[range],
-                  labels: ['Active', 'Inactive'],
-                  colors: ['#28a745', '#dc3545']
-                };
-                if (window.activeInactiveChartObj) window.activeInactiveChartObj.destroy();
-                window.activeInactiveChartObj = new ApexCharts(document.querySelector('#activeInactiveChart'), options);
-                window.activeInactiveChartObj.render();
-              }
-            }
-            function renderAttendanceStatusChart(range) {
-              if (window.ApexCharts) {
-                const options = {
-                  chart: { type: 'donut', height: 300 },
-                  series: attendanceStatusData[range],
-                  labels: ['Present', 'Absent', 'On Leave'],
-                  colors: ['#007bff', '#ffc107', '#6c757d']
-                };
-                if (window.attendanceStatusChartObj) window.attendanceStatusChartObj.destroy();
-                window.attendanceStatusChartObj = new ApexCharts(document.querySelector('#attendanceStatusChart'), options);
-                window.attendanceStatusChartObj.render();
-              }
-            }
-            // Render leave list
-            function renderTopLeaveList() {
-              const list = document.getElementById('topLeaveList');
-              list.innerHTML = '';
-              leaveNames.forEach(name => {
-                const li = document.createElement('li');
-                li.textContent = name;
-                list.appendChild(li);
-              });
-            }
-            // Initial render
-            document.addEventListener('DOMContentLoaded', function() {
-              renderActiveInactiveChart('Daily');
-              renderAttendanceStatusChart('Daily');
-              renderTopLeaveList();
-            });
-          </script>
   </body>
 </html>
