@@ -358,6 +358,7 @@
                     <span style="font-weight:bold; font-size:1.5rem;">{{ delivered_count }}</span>
                     <div class="label" style="font-weight:bold; font-size:1rem;">Delivered</div>
                   </div>
+                 
                   
                   <div class="status-box-compact" style="background:#444;color:#fff;">
                     <span style="font-weight:bold; font-size:1.5rem;">{{ hold_count }}</span>
@@ -373,31 +374,31 @@
                 <h3 class="mb-3" style="margin-bottom: 12px !important;">Production Status</h3>
                 <div class="status-row-7">
                   <div class="status-box-compact" style="background:#ff9f43;color:#fff;">
-                    15
+                    {{ production_yts_count }}
                     <div class="label">Yts</div>
                   </div>
                   <div class="status-box-compact" style="background:#ffe066;color:#222;">
-                    10
+                    {{ production_ip_count }}
                     <div class="label">IP</div>
                   </div>
                   <div class="status-box-compact" style="background:#28c76f;color:#fff;">
-                    18
+                    {{ production_comp_count }}
                     <div class="label">Comp</div>
                   </div>
                   <div class="status-box-compact" style="background:#444;color:#fff;">
-                    6
+                    {{ production_hold_count }}
                     <div class="label">Hold</div>
                   </div>
                   <div class="status-box-compact" style="background:#ea5455;color:#fff;">
-                    2
+                    {{ production_qcrejected_count }}
                     <div class="label">QC Reject</div>
                   </div>
                   <div class="status-box-compact" style="background:#ffd59e;color:#222;">
-                    9
+                    {{ production_reworkcomp_count }}
                     <div class="label">Rework Comp</div>
                   </div>
                   <div class="status-box-compact" style="background:#ffe066;color:#222;">
-                    4
+                    {{ production_doubt_count }}
                     <div class="label">Doubt</div>
                   </div>
                 </div>
@@ -405,31 +406,31 @@
                  <h3 class="mb-3" style="margin-bottom: 12px !important;">Siloc Status</h3>
                 <div class="status-row-7">
                   <div class="status-box-compact" style="background:#ff9f43;color:#fff;">
-                    9
+                    {{ siloc_yts_count }}
                     <div class="label">Yts</div>
                   </div>
                   <div class="status-box-compact" style="background:#ffe066;color:#222;">
-                    7
+                    {{ siloc_ip_count }}
                     <div class="label">IP</div>
                   </div>
                   <div class="status-box-compact" style="background:#28c76f;color:#fff;">
-                    14
+                    {{ siloc_comp_count }}
                     <div class="label">Comp</div>
                   </div>
                   <div class="status-box-compact" style="background:#444;color:#fff;">
-                    3
+                    {{ siloc_hold_count }}
                     <div class="label">Hold</div>
                   </div>
                   <div class="status-box-compact" style="background:#ea5455;color:#fff;">
-                    1
+                    {{ siloc_qcrejected_count }}
                     <div class="label">QC Reject</div>
                   </div>
                   <div class="status-box-compact" style="background:#ffd59e;color:#222;">
-                    5
+                    {{ siloc_reworkcomp_count }}
                     <div class="label">Rework Comp</div>
                   </div>
                   <div class="status-box-compact" style="background:#ffe066;color:#222;">
-                    2
+                   {{ siloc_doubt_count }}
                     <div class="label">Doubt</div>
                   </div>
                 </div>
@@ -438,31 +439,31 @@
                  <h3 class="mb-3" style="margin-bottom: 12px !important;">QC Status</h3>
                 <div class="status-row-7">
                   <div class="status-box-compact" style="background:#ff9f43;color:#fff;">
-                    11
+                    {{ qc_yts_count }}
                     <div class="label">Yts</div>
                   </div>
                   <div class="status-box-compact" style="background:#ffe066;color:#222;">
-                    6
+                    {{ qc_ip_count }}
                     <div class="label">IP</div>
                   </div>
                   <div class="status-box-compact" style="background:#28c76f;color:#fff;">
-                    13
+                    {{ qc_comp_count }}
                     <div class="label">Comp</div>
                   </div>
                   <div class="status-box-compact" style="background:#444;color:#fff;">
-                    4
+                    {{ qc_hold_count }}
                     <div class="label">Hold</div>
                   </div>
                   <div class="status-box-compact" style="background:#ea5455;color:#fff;">
-                    2
+                    {{ qc_qcrejected_count }}
                     <div class="label">QC Reject</div>
                   </div>
                   <div class="status-box-compact" style="background:#ffd59e;color:#222;">
-                    8
+                    {{ qc_reworkcomp_count }}
                     <div class="label">Rework Comp</div>
                   </div>
                   <div class="status-box-compact" style="background:#ffe066;color:#222;">
-                    3
+                    {{ qc_doubt_count }}
                     <div class="label">Doubt</div>
                   </div>
                 </div>    
@@ -471,31 +472,31 @@
                  <h3 class="mb-3" style="margin-bottom: 12px !important;">Siloc Path Association</h3>
                 <div class="status-row-7">
                   <div class="status-box-compact" style="background:#ff9f43;color:#fff;">
-                    11
+                    {{ production_doubt_count }}
                     <div class="label">Yts</div>
                   </div>
                   <div class="status-box-compact" style="background:#ffe066;color:#222;">
-                    6
+                    {{ production_doubt_count }}
                     <div class="label">IP</div>
                   </div>
                   <div class="status-box-compact" style="background:#28c76f;color:#fff;">
-                    13
+                    {{ production_doubt_count }}
                     <div class="label">Comp</div>
                   </div>
                   <div class="status-box-compact" style="background:#444;color:#fff;">
-                    4
+                    {{ production_doubt_count }}
                     <div class="label">Hold</div>
                   </div>
                   <div class="status-box-compact" style="background:#ea5455;color:#fff;">
-                    2
+                    {{ production_doubt_count }}
                     <div class="label">QC Reject</div>
                   </div>
                   <div class="status-box-compact" style="background:#ffd59e;color:#222;">
-                    8
+                    {{ production_doubt_count }}
                     <div class="label">Rework Comp</div>
                   </div>
                   <div class="status-box-compact" style="background:#ffe066;color:#222;">
-                    3
+                    {{ production_doubt_count }}
                     <div class="label">Doubt</div>
                   </div>
                 </div>               
