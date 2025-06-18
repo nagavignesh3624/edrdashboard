@@ -19,7 +19,7 @@ class WorkUnit(models.Model):
     rfdb_production_status = models.CharField(max_length=50, null=True, blank=True)
     rfdb_qc_status = models.CharField(max_length=50, null=True, blank=True)
     siloc_status = models.CharField(max_length=50, null=True, blank=True)
-    rfdb_completion_date = models.DateField(null=True, blank=True)
+    rfdb_completed_date = models.DateField(null=True, blank=True)
 
     # Add other fields as needed
 
@@ -29,34 +29,33 @@ class WorkUnit(models.Model):
 
         
 class Production_inputs(models.Model):
-    production_completion_date = models.DateField()
-    atdb_output = models.IntegerField(default=0)
+    
+    wu_received_date = models.DateField(null=True, blank=True)
+    rfdb_completed_date = models.DateField(unique=True)
+    rfdb_production_status = models.CharField(max_length=50)  # Example: "Completed"
+    rfdb_qc_status = models.CharField(max_length=50)  # Example: "Completed"
+    rfdb_qc_completed_date = models.DateField(null=True, blank=True)
+    siloc_status = models.CharField(max_length=50)  # Example: "Completed"
+    siloc_completed_date = models.DateField(null=True, blank=True)
+
+
+    
+
+    input_received_count = models.IntegerField(default=0)
     production_output = models.IntegerField(default=0)
     siloc_output = models.IntegerField(default=0)
     qc_output = models.IntegerField(default=0)
     path_association_output = models.IntegerField(default=0)
     delivery = models.IntegerField(default=0)
 
+    class Meta:
+        db_table = 'tm_production_inputs'
+        ordering = ['rfdb_completed_date']  # oldest to newest
+        verbose_name = "Daily Production Input"
+        verbose_name_plural = "Daily Production Inputs"
+
     def __str__(self):
-        return f"{self.production_completion_date}"
-    
+        return f"{self.rfdb_completed_date} - Prod: {self.production_output}"
 
-    
-# class DailyCompletionStatus(models.Model):
-#     start_date = models.DateField(default=date(2022, 1, 1))  # Replace with your fixed start
-#     end_date = models.DateField(default=date.today)
 
-#     production_completion_date = models.DateField()
-#     atdb_output = models.IntegerField(default=0)
-#     production_output = models.IntegerField(default=0)
-#     siloc_output = models.IntegerField(default=0)
-#     qc_output = models.IntegerField(default=0)
-#     path_association_output = models.IntegerField(default=0)
-#     delivery = models.IntegerField(default=0)
-#     rfdb_production_status = models.CharField(max_length=50, null=True, blank=True)  # Include if needed for filtering
-
-#     class Meta:
-#         db_table = 'tm_production_inputs'  # Change to your actual table name if different
-#         managed = False  # Prevent Django from creating or modifying this table
-    
 

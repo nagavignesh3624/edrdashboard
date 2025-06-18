@@ -13,7 +13,8 @@ urlpatterns = [
     path('tm_dmp', views.tm_dmp, name='tm_dmp'),
     path('download_workunit_excel/', views.download_workunit_excel, name='download_workunit_excel'),
     path('production-report/', views.production_report, name='production_report'),
-    path('daily-status/', views.daily_status_view, name='daily_status'),
+   
+    
     
 ]
 

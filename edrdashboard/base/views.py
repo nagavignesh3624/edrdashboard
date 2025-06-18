@@ -10,9 +10,12 @@ import openpyxl
 from django.db.models import Count
 from django.shortcuts import render
 from .models import Production_inputs
-from datetime import datetime
-from .models import DailyCompletionStatus
+from datetime import datetime, timedelta
 from django.db.models import Count, Q
+from django.db.models import Sum
+from collections import defaultdict
+# import sys
+
 
 
 # Create your views here.
@@ -30,22 +33,22 @@ def get_workunit_context():
     input_count = WorkUnit.objects.count()
     delivered_count = WorkUnit.objects.filter(delivery_status='Delivered').count()
     hold_count = WorkUnit.objects.filter(delivery_status='Hold').count()
-    production_yts_count = WorkUnit.objects.filter(rfdb_production_status='Yts').count()
-    production_ip_count = WorkUnit.objects.filter(rfdb_production_status='ip').count()
+    production_yts_count = WorkUnit.objects.filter(rfdb_production_status='Yet to start').count()
+    production_ip_count = WorkUnit.objects.filter(rfdb_production_status='inprogress').count()
     production_comp_count = WorkUnit.objects.filter(rfdb_production_status='Completed').count()
     production_hold_count = WorkUnit.objects.filter(rfdb_production_status='Hold').count()
     production_qcrejected_count = WorkUnit.objects.filter(rfdb_production_status='Qc Rejected').count()
     production_reworkcomp_count = WorkUnit.objects.filter(rfdb_production_status='Rework Comp').count()
-    production_doubt_count = WorkUnit.objects.filter(rfdb_production_status='Doubt').count()
-    siloc_yts_count = WorkUnit.objects.filter(siloc_status='Yts').count()
-    siloc_ip_count = WorkUnit.objects.filter(siloc_status='ip').count()
+    production_doubt_count = WorkUnit.objects.filter(rfdb_production_status='Doubt_Case').count()
+    siloc_yts_count = WorkUnit.objects.filter(siloc_status='Yet to start').count()
+    siloc_ip_count = WorkUnit.objects.filter(siloc_status='inprogress').count()
     siloc_comp_count = WorkUnit.objects.filter(siloc_status='Completed').count()
     siloc_hold_count = WorkUnit.objects.filter(siloc_status='Hold').count()
     siloc_qcrejected_count = WorkUnit.objects.filter(siloc_status='Qc Rejected').count()
     siloc_reworkcomp_count = WorkUnit.objects.filter(siloc_status='Rework Comp').count()
     siloc_doubt_count = WorkUnit.objects.filter(siloc_status='Doubt').count()
     qc_yts_count = WorkUnit.objects.filter(rfdb_qc_status='Yts').count()
-    qc_ip_count = WorkUnit.objects.filter(rfdb_qc_status='ip').count()
+    qc_ip_count = WorkUnit.objects.filter(rfdb_qc_status='inprogres').count()
     qc_comp_count = WorkUnit.objects.filter(rfdb_qc_status='Completed').count()
     qc_hold_count = WorkUnit.objects.filter(rfdb_qc_status='Hold').count()
     qc_qcrejected_count = WorkUnit.objects.filter(rfdb_qc_status='Qc Rejected').count()
@@ -91,21 +94,6 @@ def tm_dmp(request):
     context = get_workunit_context()
     return render(request, 'tm_dmp.html', context)
 
-def production_status_by_date(request):
-    comp_records = (
-        get_workunit_context.objects
-        .filter(rfdb_production_status='comp')
-        .values('rfdb_production_completion_date')
-        .annotate(comp_count=Count('id'))
-        .order_by('rfdb_production_completion_date')
-    )
-
-    context = {
-        'records': comp_records
-    }
-
-    return render(request, 'your_template.html', context)
-
 
 
 
@@ -143,66 +131,75 @@ def download_workunit_excel(request):
     wb.save(response)
     return response
 
-def download_workunit_excel_hold(request):
-    wb = openpyxl.Workbook()
-    ws = wb.active
-    ws.title = 'WorkUnits'
-
-    # Header
-    ws.append(['wu_intersection_node_id', 'delivery_status'])
-
-    # Data
-    for wu in WorkUnit.objects.all():
-        ws.append([wu.wu_intersection_node_id, wu.delivery_status])
-
-    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=workunits.xlsx'
-    wb.save(response)
-    return response
 
 
 def production_report(request):
-    from_date = request.GET.get('from_date')
-    to_date = request.GET.get('to_date')
+    from_date_str = request.GET.get('from_date')
+    to_date_str = request.GET.get('to_date')
 
-    records = Production_inputs.objects.all().order_by('production_completion_date')
+    records_by_day = []
 
-    if from_date and to_date:
-        records = records.filter(
-            production_completion_date__range=[from_date, to_date]
-        )
+    if from_date_str and to_date_str:
+        try:
+            from_date = datetime.strptime(from_date_str, "%Y-%m-%d").date()
+            to_date = datetime.strptime(to_date_str, "%Y-%m-%d").date()
+            # Ensure from_date is before to_date
+            # print("From:", from_date_str, "| To:", to_date_str)
 
-    # Manipulate data based on condition
-    for record in records:
-        if record.qc_output < 5:
-            record.production_output += 10  # example adjustment
+            if from_date > to_date:
+                return JsonResponse({'error': 'From date must be before To date'}, status=400)
+            # Initialize records_by_day with dates in the range
+            current_date = from_date
+            while current_date <= to_date:
+                production_count = Production_inputs.objects.filter(
+                    rfdb_production_status='Completed',
+                    rfdb_completed_date=current_date
+                ).count()
 
-    return render(request, 'report_table.html', {
-        'records': records,
-        'from_date': from_date,
-        'to_date': to_date,
+                qc_count = Production_inputs.objects.filter(
+                    rfdb_qc_status='Completed',
+                    rfdb_qc_completed_date=current_date
+                ).count()
+                
+                siloc_count = Production_inputs.objects.filter(
+                    siloc_status ='Completed',
+                    siloc_completed_date =current_date
+                ).count()
+                
+                input_received_count = Production_inputs.objects.filter(
+                    wu_received_date=current_date
+                ).count()
+
+
+
+                # 🔍 Add this line for debugging
+                # print(f"Date: {current_date} | Production: {production_count} | QC: {qc_count}", file=sys.stdout)
+                # sys.stdout.flush()
+
+                
+
+                records_by_day.append({
+                    'date': current_date,                    
+                    'input_received_count': input_received_count,
+                    'production_output': production_count,
+                    'siloc_output': siloc_count,
+                    'qc_output': qc_count,
+                    'path_association_output': 0,
+                    'delivery': 0
+                })
+                current_date += timedelta(days=1)
+    
+          
+        except ValueError:
+            return JsonResponse({'error': 'Invalid date format. Use YYYY-MM-DD.'}, status=400)
+
+    return render(request, 'tm_dmp.html', {
+        'records': sorted(records_by_day, key=lambda x: x['date']),
+        'from_date': from_date_str,
+        'to_date': to_date_str,
     })
 
 
-def daily_status_view(request):
-    from_date = request.GET.get('from_date')
-    to_date = request.GET.get('to_date')
 
-    records = DailyCompletionStatus.objects.all()
-
-    if from_date and to_date:
-        try:
-            from_date_obj = datetime.strptime(from_date, '%Y-%m-%d').date()
-            to_date_obj = datetime.strptime(to_date, '%Y-%m-%d').date()
-            # records = records.filter(date__range=(from_date_obj, to_date_obj))
-        except ValueError:
-            pass  # Invalid date input; ignore filtering
-
-    context = {
-        'records': records.order_by('-date'),
-        'from_date': from_date,
-        'to_date': to_date,
-    }
-    return render(request, 'tm_dmp.html', context)
 
 

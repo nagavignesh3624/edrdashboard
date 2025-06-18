@@ -14,7 +14,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-    <title>CR 64</title>
+    <title>Summary</title>
     <meta name="description" content="" />
 
     <!-- Favicon -->
@@ -450,12 +450,14 @@
           <div class="container-xxl mt-4 mb-4">
             
             
-            <form method="get" class="mb-3"  >
+            <form method="get" action="{% url 'production_report' %}" class="mb-3">
+              <tread style="background:#3b5998; color:#fff; text-align:left; font-size:18px; padding:8px;">
 
               <tr>
-                <th colspan="9" style="background:#3b5998; color:#fff; text-align:left; font-size:18px; padding:8px;">
+                <th colspan="8" style="background:#3b5998; color:#fff; text-align:left; font-size:18px; padding:8px;">
                   Daily Completion status Overall (Node Count)
                 </th>
+                </tread>
               </tr>
               <label for="from_date">From Date:</label>
               <input type="date" id="from_date" name="from_date" value="{{ from_date }}">
@@ -467,8 +469,7 @@
               <table class="table table-bordered">
                 <thead class="table-light">
                   <tr>
-                    <th>Date</th>
-                    <th>ATDB Output</th>
+                    <th>Date</th>                    
                     <th>Input Received</th>
                     <th>Production</th>
                     <th>Siloc</th>
@@ -479,17 +480,17 @@
                 </thead>
                 <tbody>
                   {% for record in records %}
-                  <tr>
-                    <td>{{ record.date }}</td>
-                    <td>{{ record.atdb_output }}</td>
-                    <td>{{ record.production_output }}</td>
-                    <td>{{ record.siloc_output }}</td>
-                    <td>{{ record.qc_output }}</td>
-                    <td>{{ record.path_association_output }}</td>
-                    <td>{{ record.delivery }}</td>
-                  </tr>
+                    <tr class="table-light">
+                      <td>{{ record.date }}</td>                      
+                      <td>{{ record.input_received_count }}</td>
+                      <td>{{ record.production_output }}</td>
+                      <td>{{ record.siloc_output }}</td>
+                      <td>{{ record.qc_output }}</td>
+                      <td>{{ record.path_association_output }}</td>
+                      <td>{{ record.delivery }}</td>
+                    </tr>
                   {% empty %}
-                  <tr><td colspan="7"> No records found for selected date range.</td></tr>
+                  <tr><td colspan="8"> No records found for selected date range.</td></tr>
                   {% endfor %}
                 </tbody>
               </table>
