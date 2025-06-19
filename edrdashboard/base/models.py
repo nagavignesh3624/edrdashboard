@@ -20,6 +20,7 @@ class WorkUnit(models.Model):
     rfdb_qc_status = models.CharField(max_length=50, null=True, blank=True)
     siloc_status = models.CharField(max_length=50, null=True, blank=True)
     rfdb_completed_date = models.DateField(null=True, blank=True)
+    priority = models.CharField(max_length=50)
 
     # Add other fields as needed
 
@@ -37,6 +38,8 @@ class Production_inputs(models.Model):
     rfdb_qc_completed_date = models.DateField(null=True, blank=True)
     siloc_status = models.CharField(max_length=50)  # Example: "Completed"
     siloc_completed_date = models.DateField(null=True, blank=True)
+    delivery_date = models.DateField(null=True, blank=True)
+    delivery_status = models.CharField(max_length=50, null=True, blank=True)
 
 
     
@@ -46,7 +49,7 @@ class Production_inputs(models.Model):
     siloc_output = models.IntegerField(default=0)
     qc_output = models.IntegerField(default=0)
     path_association_output = models.IntegerField(default=0)
-    delivery = models.IntegerField(default=0)
+    delivery_count = models.IntegerField(default=0)
 
     class Meta:
         db_table = 'tm_production_inputs'
@@ -56,6 +59,9 @@ class Production_inputs(models.Model):
 
     def __str__(self):
         return f"{self.rfdb_completed_date} - Prod: {self.production_output}"
+    
+
+   
 
 
 

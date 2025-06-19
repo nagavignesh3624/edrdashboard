@@ -540,11 +540,9 @@
                   <div class="col-auto">
                     <select id="prioritySelect" class="form-select">
                       <option selected>Overall Priority</option>
-                      <option>Priority 1</option>
-                      <option>Priority 2</option>
-                      <option>Priority 3</option>
-                      <option>Priority 4</option>
-                      <option>Priority 5</option>
+                      {% for priority_item in priority %}
+                      <option value="{{ priorty }}">{{ priorty }}</option>
+                      {% endfor %}
                     </select>
                   </div>
                 </form>

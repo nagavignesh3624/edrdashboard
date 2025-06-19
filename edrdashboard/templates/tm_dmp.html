@@ -351,7 +351,7 @@
 
                       <tr>
                         <td>RFDB QC</td>
-                        <td style="color:#00bcd4; font-weight:bold;">0</td>
+                        <td style="color:#00bcd4; font-weight:bold;">{{ qc_count }}</td>
                         <td>0</td>
                         <td>0</td>
                         <td>0</td>
@@ -372,11 +372,11 @@
                         <td>0</td>
                         <td>0</td>
                         <td>0</td>
-                        <td> <input type="date" class="" id="completion_date" name="completion_date" placeholder="completion_date" /> </td>
+                        <td> <input type="date" class="form-control" id="completion_date" name="completion_date" placeholder="completion_date" /> </td>
                       </tr>
                       <tr>
                         <td>SILOC QC</td>
-                        <td style="color:#00bcd4; font-weight:bold;">0</td>
+                        <td style="color:#00bcd4; font-weight:bold;">{{ siloc_count }}</td>
                         <td>0</td>
                         <td>0</td>
                         <td>0</td>
@@ -384,7 +384,7 @@
                         <td>0</td>
                         <td>0</td>
                         <td>0</td>
-                        <td> <input type="date" class="" id="completion_date" name="completion_date" placeholder="completion_date" /> </td>
+                        <td> <input type="date" class="form-control" id="completion_date" name="completion_date" placeholder="completion_date" /> </td>
                       </tr>
                       <tr>
                         <td>Path Association</td>
@@ -472,7 +472,8 @@
               <label for="to_date">To Date:</label>
               <input type="date" id="to_date" name="to_date" value="{{ to_date }}">
               <button type="submit" class="btn btn-primary btn-sm">Filter</button>
-              <lable type="text" class="form-label">{#error}</lable>
+              <button type="" class="btn btn-primary btn-sm">Export</button>
+              
             </form>
             <div class="card">
               <table class="table table-bordered">
@@ -496,7 +497,7 @@
                       <td>{{ record.siloc_output }}</td>
                       <td>{{ record.qc_output }}</td>
                       <td>{{ record.path_association_output }}</td>
-                      <td>{{ record.delivery }}</td>
+                      <td>{{ record.delivery_count }}</td>
                     </tr>
                   {% empty %}
                   <tr><td colspan="8"> No records found for selected date range.</td></tr>

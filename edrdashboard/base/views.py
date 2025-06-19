@@ -88,6 +88,10 @@ def get_workunit_context():
 # your two views can now reuse that data
 def statustracking_page(request):
     context = get_workunit_context()
+    priority = WorkUnit.objects.values_list('priority', flat=True).distinct().order_by('priority')
+
+    context['priority'] = priority
+  
     return render(request, 'statustracking.html', context)
 
 def tm_dmp(request):
@@ -170,6 +174,11 @@ def production_report(request):
                     wu_received_date=current_date
                 ).count()
 
+                delivery_count = Production_inputs.objects.filter(
+                    delivery_status='Delivered',
+                    delivery_date=current_date
+                ).count()
+
 
 
                 # 🔍 Add this line for debugging
@@ -185,7 +194,7 @@ def production_report(request):
                     'siloc_output': siloc_count,
                     'qc_output': qc_count,
                     'path_association_output': 0,
-                    'delivery': 0
+                    'delivery_count': delivery_count
                 })
                 current_date += timedelta(days=1)
     
@@ -198,7 +207,6 @@ def production_report(request):
         'from_date': from_date_str,
         'to_date': to_date_str,
     })
-
 
 
 
