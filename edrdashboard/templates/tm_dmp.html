@@ -178,6 +178,11 @@
                 <div data-i18n="Tables">Tables</div>
               </a>
             </li>
+
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Other links</span>
+            </li>
+
             <li class="menu-item">
               <a href="http://43.240.66.191/start_new.aspx" class="menu-link" target="_blank">
                 <i class="menu-icon tf-icons bx bx-link"></i>
@@ -319,78 +324,81 @@
                         <th>Delivered</th>
                         <th>Planned Comp Date</th>
                       </tr>
-                      <tr>
+                      <!-- <tr>
                         <td>ATDB WU Creation</td>
                         <td style="color:#00bcd4; font-weight:bold;">0</td>
-                        <td>8981</td>
-                        <td>3107</td>
-                        <td>0</td>
-                        <td>10689</td>
                         <td>0</td>
                         <td>0</td>
-                        <td>10689</td>
-                        <td>Apr/17</td>
-                      </tr>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td> </td>
+                      </tr> -->
                       <tr>
                         <td>RFDB Production</td>
                         <td style="color:#00bcd4; font-weight:bold;">{{ input_count }}</td>
-                        <td>6326</td>
-                        <td>7242</td>
-                        <td>0</td>
-                        <td>10689</td>
                         <td>0</td>
                         <td>0</td>
                         <td>0</td>
-                        <td>Apr/23</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td> <input type="date" class="form-control" id="completion_date" name="completion_date" placeholder="completion_date" /> </td>
                       </tr>
+
+                      <tr>
+                        <td>RFDB QC</td>
+                        <td style="color:#00bcd4; font-weight:bold;">0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td> <input type="date" class="form-control" id="completion_date" name="completion_date" placeholder="completion_date" /> </td>
+                      </tr>
+                      
                       <tr>
                         <td>SILOC Production</td>
-                        <td style="color:#00bcd4; font-weight:bold;">10689</td>
-                        <td>5727</td>
-                        <td>4962</td>
-                        <td>0</td>
-                        <td>10689</td>
+                        <td style="color:#00bcd4; font-weight:bold;">0</td>
                         <td>0</td>
                         <td>0</td>
                         <td>0</td>
-                        <td>Apr/24</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td> <input type="date" class="" id="completion_date" name="completion_date" placeholder="completion_date" /> </td>
                       </tr>
                       <tr>
                         <td>SILOC QC</td>
-                        <td style="color:#00bcd4; font-weight:bold;">10689</td>
-                        <td>5232</td>
-                        <td>5457</td>
-                        <td>0</td>
-                        <td>10689</td>
+                        <td style="color:#00bcd4; font-weight:bold;">0</td>
                         <td>0</td>
                         <td>0</td>
                         <td>0</td>
-                        <td>Apr/25</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td> <input type="date" class="" id="completion_date" name="completion_date" placeholder="completion_date" /> </td>
                       </tr>
                       <tr>
                         <td>Path Association</td>
-                        <td style="color:#00bcd4; font-weight:bold;">10689</td>
-                        <td>5232</td>
-                        <td>5457</td>
-                        <td>0</td>
-                        <td>10689</td>
+                        <td style="color:#00bcd4; font-weight:bold;">0</td>
                         <td>0</td>
                         <td>0</td>
                         <td>0</td>
-                        <td>Apr/30</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                        <td> <input type="date" class="form-control" id="completion_date" name="completion_date" placeholder="completion_date" /> </td>
                       </tr>
-                      <tr>
-                        <td>RFDB QC</td>
-                        <td style="color:#00bcd4; font-weight:bold;">10689</td>
-                        <td>5232</td>
-                        <td>5457</td>
-                        <td>0</td>
-                        <td>9956</td>
-                        <td>251</td>
-                        <td>482</td>
-                        <td>9956</td>
-                        <td>Apr/30</td>
-                      </tr>
+                      
                     </table>
                 
                   </div>
@@ -464,6 +472,7 @@
               <label for="to_date">To Date:</label>
               <input type="date" id="to_date" name="to_date" value="{{ to_date }}">
               <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+              <lable type="text" class="form-label">{#error}</lable>
             </form>
             <div class="card">
               <table class="table table-bordered">

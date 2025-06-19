@@ -79,8 +79,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'RFDB_Server',
-        'USER': '15249',
-        'PASSWORD': '''"UsIcVNmqZo5''',
+        'USER': 'djangoadmin',
+        'PASSWORD': 'p,INdZ6c0MWp',
         'HOST': '192.168.12.35',
         'PORT': '5432',  
     }
