@@ -1,0 +1,813 @@
+{% load static %} 
+<!DOCTYPE html>
+<html
+  lang="en"
+  class="light-style layout-menu-fixed"
+  dir="ltr"
+  data-theme="theme-default"
+  data-assets-path="../assets/"
+  data-template="vertical-menu-template-free"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <title>QC Status</title>
+    <meta name="description" content="" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/img/favicon/favicon.ico' %}" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="{% static 'assets/vendor/fonts/boxicons.css' %}" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{% static 'assets/vendor/css/core.css' %}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{% static 'assets/vendor/css/theme-default.css' %}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{% static 'assets/css/demo.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/status-miles.css' %}" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{% static 'assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/vendor/libs/apex-charts/apex-charts.css' %}" />
+    <!-- Helpers -->
+    <script src="{% static 'assets/vendor/js/helpers.js' %}"></script>
+    <script src="{% static 'assets/js/config.js' %}"></script>
+    
+
+  </head>
+  <body>
+    <!-- Layout wrapper -->
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <!-- Menu -->
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+          <div class="app-brand demo">
+            <a href="{% url 'dashboard' %}" class="app-brand-link">
+              <span class="app-brand-logo demo">
+                <!-- Logo -->
+                <div class="app-brand justify-content-center">
+                  <a href="{% url 'dashboard' %}" class="app-brand-link gap-2">
+                    <span class="app-brand-logo demo">
+                      <img src="{% static 'assets/img/favicon/favicon.ico' %}" alt="EDR" width="40" />
+                    </span>
+                  </a>
+                </div>
+                <!-- /Logo -->
+              </span>
+            </a>
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+              <i class="bx bx-chevron-left bx-sm align-middle"></i>
+            </a>
+          </div>
+          <div class="menu-inner-shadow"></div>
+          <ul class="menu-inner py-1">
+            <!-- Dashboard -->
+            <li class="menu-item active">
+              <a href="{% url 'dashboard' %}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">Dashboard</div>
+              </a>
+            </li>
+            
+            <!-- Layouts -->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-briefcase"></i>
+                <div data-i18n="Layouts">Turn_Maneuvre</div>
+              </a>
+
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{% url 'statustracking' %}" class="menu-link">
+                    <div data-i18n="statustracking">Status Tracking</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{% url 'tm_dmp' %}" class="menu-link">
+                    <div data-i18n="tm_dmp">Summary</div>
+                  </a>
+                </li>
+                
+                <li class="menu-item">
+                  <a href="{% url 'qc_summary' %}" class="menu-link">
+                    <div data-i18n="Status Tracking">QC Summary</div>
+                  </a>
+                </li>
+               
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <div data-i18n="NA_CM">On_Hold</div>
+                  </a>
+                </li>
+               
+              </ul>
+            </li>
+
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-briefcase"></i>
+                <div data-i18n="Layouts">NA_CM</div>
+              </a>
+
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{% url 'statustracking' %}" class="menu-link">
+                    <div data-i18n="statustracking">Status Tracking</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{% url 'tm_dmp' %}" class="menu-link">
+                    <div data-i18n="tm_dmp">Summary</div>
+                  </a>
+                </li>
+               
+                <li class="menu-item">
+                  <a href="#" class="menu-link">
+                    <div data-i18n="On_Hold">On_Hold</div>
+                  </a>
+                </li>
+               
+              </ul>
+            </li>
+
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Pages</span>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">Account Settings</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{% url 'account' %}" class="menu-link">
+                    <div data-i18n="Account">Account</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+                <div data-i18n="Authentications">Authentications</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="{% url 'login' %}" class="menu-link">
+                    <div data-i18n="Basic">Login</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{% url 'register' %}" class="menu-link">
+                    <div data-i18n="Basic">Register</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="{% url 'forgot_password' %}" class="menu-link">
+                    <div data-i18n="Basic">Forgot Password</div>
+                  </a>
+                </li>          
+
+              </ul>
+            </li>
+            
+            <li class="menu-item">
+              <a href="#" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-table"></i>
+                <div data-i18n="Tables">Tables</div>
+              </a>
+            </li>
+
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Other links</span>
+            </li>
+
+
+            <li class="menu-item">
+              <a href="http://43.240.66.191/start_new.aspx" class="menu-link" target="_blank">
+                <i class="menu-icon tf-icons bx bx-link"></i>
+                <div data-i18n="Spine HR">Spine HR</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="https://dev-msds.edrinfo.in/attendance" class="menu-link" target="_blank">
+                <i class="menu-icon tf-icons bx bx-link-external"></i>
+                <div data-i18n="Attendance Tracking">Attendance Tracking</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="http://192.168.9.231:9090/" class="menu-link" target="_blank">
+                <i class="menu-icon tf-icons bx bx-wrench"></i>
+                <div data-i18n="IT isuue Portal">IT isuue Portal</div>
+              </a>
+            </li>
+          </ul>
+        </aside>
+        <!-- / Menu -->
+
+        <!-- Layout container -->
+        <div class="layout-page">
+          <!-- Navbar -->
+          <nav
+            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+            id="layout-navbar"
+          >
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                <i class="bx bx-menu bx-sm"></i>
+              </a>
+            </div>
+            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+              <!-- Search -->
+              <div class="navbar-nav align-items-center">
+                <div class="nav-item d-flex align-items-center">
+                  <i class="bx bx-search fs-4 lh-0"></i>
+                  <input
+                    type="text"
+                    class="form-control border-0 shadow-none"
+                    placeholder="Search..."
+                    aria-label="Search..."
+                  />
+                </div>
+              </div>
+              <!-- /Search -->
+              <ul class="navbar-nav flex-row align-items-center ms-auto">
+                <!-- User -->
+                <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                    <div class="avatar avatar-online">
+                      <img src="{% static 'assets/img/avatars/1.png' %}" alt class="w-px-40 h-auto rounded-circle" />
+                    </div>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <div class="d-flex">
+                          <div class="flex-shrink-0 me-3">
+                            <div class="avatar avatar-online">
+                              <img src="{% static 'assets/img/avatars/1.png' %}" alt class="w-px-40 h-auto rounded-circle" />
+                            </div>
+                          </div>
+                          <div class="flex-grow-1">
+                            <span class="fw-semibold d-block">Naga</span>
+                            <small class="text-muted">Admin</small>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <i class="bx bx-user me-2"></i>
+                        <span class="align-middle">My Profile</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <i class="bx bx-cog me-2"></i>
+                        <span class="align-middle">Settings</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <span class="d-flex align-items-center align-middle">
+                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                          <span class="flex-grow-1 align-middle">Notification</span>
+                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="{% url 'login' %}">
+                        <i class="bx bx-power-off me-2"></i>
+                        <span class="align-middle">Log Out</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <!--/ User -->
+              </ul>
+            </div>
+          </nav>
+          <!-- / Navbar -->
+
+          <!-- QC Status Summary Table (Added at Top) -->
+
+
+          <div class="container-xxl mt-4" style="padding: 1px 4px;">
+            <div class="flex-table-wrap">
+                
+                <h4 class="card-header">QC Summary </h4>
+               
+                <div class="card-body">
+
+                  <div class="table-responsive text-nowrap">
+                        <table>
+                        <thead style="background: #f3f6fd;">
+                            <tr style="background: #e3eefd; color: #333;">
+                            <th>S#</th>
+                            
+                            <th>Total Received</th>
+                            <th>QC Received</th>
+                            <th>Yet to Received</th>
+                            <th>Production_on_hold</th>
+                            <th class="header-pending">Pending</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td>1</td>
+                            
+                            <td>21189</td>
+                            <td>20</td>
+                            <td>34</td>
+                            <td>21155</td>
+                            <td>0</td>
+                            </tr>
+                            
+                        </tbody>
+                        </table>
+
+                    </div>
+                    <h4 class="card-header">Statewise Summary</h4>
+                    <div class="table-responsive text-nowrap">
+                        
+                        <table>
+                        <thead style="background: #f3f6fd;">
+                            <tr style="background: #e3eefd; color: #333;">
+                            <th>S#</th>
+                            <th>Subcountry</th>
+                            <th>Total Received</th>
+                            <th>QC Received</th>
+                            <th>Yet to Received</th>
+                            <th>Production_on_hold</th>
+                            <th class="header-pending">Pending</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                            <td>1</td>
+                            <td>USA_NorthCarolina</td>
+                            <td>21189</td>
+                            <td>20</td>
+                            <td>34</td>
+                            <td>21155</td>
+                            <td>0</td>
+                            </tr>
+                            <tr>
+                            <td>2</td>
+                            <td>USA_Pennsylvania</td>
+                            <td>20487</td>
+                            <td>52</td>
+                            <td>52</td>
+                            <td>20435</td>
+                            <td>0</td>
+                            </tr>
+                            <tr>
+                            <td>3</td>
+                            <td>CAN_Ontario</td>
+                            <td>20054</td>
+                            <td>52</td>
+                            <td>74</td>
+                            <td>19980</td>
+                            <td>0</td>
+                            </tr>
+                            <tr>
+                            <td>4</td>
+                            <td>USA_NewYork</td>
+                            <td>18968</td>
+                            <td>52</td>
+                            <td>71</td>
+                            <td>18897</td>
+                            <td>0</td>
+                            </tr>
+                            <tr>
+                            <td>5</td>
+                            <td>USA_Virginia</td>
+                            <td>18577</td>
+                            <td>40</td>
+                            <td>40</td>
+                            <td>18537</td>
+                            <td>0</td>
+                            </tr>
+                            <tr>
+                            <td>6</td>
+                            <td>USA_Ohio</td>
+                            <td>15976</td>
+                            <td>13</td>
+                            <td>39</td>
+                            <td>15937</td>
+                            <td>0</td>
+                            </tr>
+                            <tr style="background: #e3eefd; color: #333;">
+                            <td colspan="2">Total</td>
+                            <td>115251</td>
+                            <td>229</td>
+                            <td>310</td>
+                            <td>114941</td>
+                            <td>0</td>
+                            </tr>
+                        </tbody>
+                        </table>
+
+                    </div>
+
+
+
+
+                </div>
+
+                </div>
+                
+
+          
+              <div class="card-body">
+                <h4 class="card-header">Statewise QC Status </h4>      
+                
+
+                <div class="table-responsive text-nowrap">
+                  <table>
+                    <thead style="background: #f3f6fd;">
+                      <tr style="background: #e3eefd; color: #333;">
+                        <th>S#</th>
+                        <th>Subcountry</th>
+                        <th>QC Received Count</th>
+                        <th>Ready For QC</th>
+                        <th>ip</th>
+                        <th>QC Rejected</th>
+                        <th>Rework ip</th>
+                        <th>Rework Comp</th>
+                        <th>Doubtcase</th>
+                        <th>Hold</th>
+                        <th>Comp</th>
+                        <th class="header-pending">Pending</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td><td>USA_NorthCarolina</td><td>21189</td><td>20</td><td>0</td><td>0</td><td>14</td><td>0</td><td>0</td><td>0</td><td>21155</td><td>34</td>
+                      </tr>
+                      <tr>
+                        <td>2</td><td>USA_Pennsylvania</td><td>20487</td><td>52</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>20435</td><td>52</td>
+                      </tr>
+                      <tr>
+                        <td>3</td><td>CAN_Ontario</td><td>20054</td><td>52</td><td>18</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>19980</td><td>74</td>
+                      </tr>
+                      <tr>
+                        <td>4</td><td>USA_NewYork</td><td>18968</td><td>52</td><td>0</td><td>19</td><td>0</td><td>0</td><td>0</td><td>0</td><td>18897</td><td>71</td>
+                      </tr>
+                      <tr>
+                        <td>5</td><td>USA_Virginia</td><td>18577</td><td>40</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>18537</td><td>40</td>
+                      </tr>
+                      <tr>
+                        <td>6</td><td>USA_Ohio</td><td>15976</td><td>13</td><td>0</td><td>0</td><td>0</td><td>26</td><td>0</td><td>0</td><td>15937</td><td>39</td>
+                      </tr>
+                      <tr class="background: #e3eefd; color: #333;">
+                        <td colspan="2">Total</td>
+                        <td>115251</td>
+                        <td>229</td>
+                        <td>18</td>
+                        <td>19</td>
+                        <td>14</td>
+                        <td>26</td>
+                        <td>4</td>
+                        <td>0</td>
+                        <td>114941</td>
+                        <td>310</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+
+              <div class="card-body">
+                <h4>Statewise Team Status</h4>
+                <span class="state-label">State:</span>
+                <select class="state-select" id="stateSelect">
+                <option selected>USA_Virginia</option>
+                <option>USA_NorthCarolina</option>
+                <option>USA_Pennsylvania</option>
+                <option>CAN_Ontario</option>
+                <option>USA_NewYork</option>
+                <option>USA_Ohio</option>
+                
+                </select>
+
+                <div class="table-responsive text-nowrap">
+                  <table>
+                      <thead>
+                      <tr>
+                          <th>S#</th>
+                          <th>Done By</th>
+                          <th>Allotted Count</th>
+                          <th>Yts</th>
+                          <th>ip</th>
+                          <th>QC Rejected</th>
+                          <th>Rework ip</th>
+                          <th>Rework Comp</th>
+                          <th>Doubtcase</th>
+                          <th>Hold</th>
+                          <th>Comp</th>
+                          <th class="header-pending">Pending</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr>
+                          <td>1</td><td>R Rajapandi</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td>
+                      </tr>
+                      <tr>
+                          <td>2</td><td>M.Leo Bosco</td><td>18538</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>18537</td><td>1</td>
+                      </tr>
+                      <tr>
+                          <td>3</td><td>P Senthilarasan</td><td>1</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td>
+                      </tr>
+                      <tr>
+                          <td>4</td><td>Muralimanogar</td><td>2</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td>
+                      </tr>
+                      </tbody>
+                      <tfoot>
+                      <tr class="summary-row">
+                          <td colspan="2">Total</td>
+                          <td>18542</td>
+                          <td>5</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>0</td>
+                          <td>18537</td>
+                          <td>5</td>
+                      </tr>
+                      </tfoot>
+                  </table>
+                </div>
+              </div>
+
+              <div class="card-body">
+                <h4>Overall Individual Status</h4>
+                
+                <div class="table-responsive text-nowrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th colspan="2" class="header-status"><span class="header-status">State:</span>
+                        <select class="state-select" id="individualStateSelect">
+                        <option selected>USA_NorthCarolina</option>
+                        <option>USA_Pennsylvania</option>
+                        <option>CAN_Ontario</option>
+                        <option>USA_NewYork</option>
+                        <option>USA_Virginia</option>
+                        <option>USA_Ohio</option>
+                        </select> </th>
+                        <th class="header-status">115022</th>
+                        <th class="header-status">0</th>
+                        <th class="header-status">18</th>
+                        <th class="header-status">19</th>
+                        <th class="header-status">14</th>
+                        <th class="header-status">26</th>
+                        <th class="header-status">4</th>
+                        <th class="header-status">0</th>
+                        <th class="header-status">114941</th>
+                        <th class="header-status">81</th>
+                      </tr>
+                      <tr>
+                        <th>S#</th>
+                        <th>Done By</th>
+                        <th>Allotted Count</th>
+                        <th>Yts</th>
+                        <th>ip</th>
+                        <th>QC Rejected</th>
+                        <th>Rework ip</th>
+                        <th>Rework Comp</th>
+                        <th>Doubtcase</th>
+                        <th>Hold</th>
+                        <th>Comp</th>
+                        <th class="header-pending">Pending</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td><td>M.Thottadharani</td><td>4399</td><td>0</td><td>5</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4394</td><td>5</td>
+                      </tr>
+                      <tr>
+                        <td>2</td><td>N Jegadeeshkumar</td><td>4002</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>4</td><td>3997</td><td>1</td>
+                      </tr>
+                      <tr>
+                        <td>3</td><td>C.Suseela</td><td>2102</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>2101</td><td>1</td>
+                      </tr>
+                      <tr>
+                        <td>4</td><td>V Jothibaskar</td><td>2357</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2356</td><td>1</td>
+                      </tr>
+                      <tr>
+                        <td>5</td><td>V Abhinesh</td><td>3590</td><td>0</td><td>10</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>3580</td><td>10</td>
+                      </tr>
+                      <!-- Add more rows as needed -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="card-body">
+                <h4>Daily Completed Status</h4>
+                <form id="dailyCompletedForm" style="margin-bottom: 12px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px;">
+                  <label for="fromDate" style="font-weight: bold; color: #256029; margin-right: 8px;">From:</label>
+                  <input type="date" id="fromDate" name="fromDate" style="margin-right: 8px;">
+                  <label for="toDate" style="font-weight: bold; color: #256029; margin-right: 8px;">To:</label>
+                  <input type="date" id="toDate" name="toDate" style="margin-right: 8px;">
+                  <button type="button" id="applyBtn" class="btn btn-primary btn-sm">Apply</button>
+                  <button type="button" id="resetBtn" class="btn btn-secondary btn-sm" style="margin-left: 0;">Reset</button>
+                  <div style="flex: 1 1 auto;"></div>
+                  <button type="button" id="exportBtn" class="btn btn-primary btn-sm" style="margin-left: auto;">Export</button>
+                </form>
+                <div id="dailyCompletedError" style="color: #d80000; font-weight: bold; margin-bottom: 8px;"></div>
+                <div class="table-responsive text-nowrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th rowspan="2" style="background: #256029; color: #fff;">S#</th>
+                        <th rowspan="2" style="background: #256029; color: #fff;">Done By</th>
+                        <th colspan="7" style="background: #b2b7e2; color: #222;">Daily Completed Status</th>
+                      </tr>
+                      <tr style="background: #6c3483; color: #fff;">
+                        <th>9-Jun-2025</th>
+                        <th>10-Jun-2025</th>
+                        <th>11-Jun-2025</th>
+                        <th>12-Jun-2025</th>
+                        <th>13-Jun-2025</th>
+                        <th>14-Jun-2025</th>
+                        <th>15-Jun-2025</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr><td>1</td><td>M.Thottadharani</td><td>1595</td><td>0</td><td>0</td><td>2799</td><td>0</td><td>0</td><td>0</td></tr>
+                      <tr><td>2</td><td>N Jegadeeshkumar</td><td>1475</td><td>0</td><td>0</td><td>361</td><td>0</td><td>2161</td><td>0</td></tr>
+                      <tr><td>3</td><td>C.Suseela</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                      <tr><td>4</td><td>V Jothibaskar</td><td>2356</td><td>0</td><td>0</td><td>229</td><td>0</td><td>0</td><td>0</td></tr>
+                      <tr><td>5</td><td>V Abhinesh</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                      <tr><td>6</td><td>M Nanthini</td><td>1325</td><td>0</td><td>0</td><td>160</td><td>0</td><td>0</td><td>0</td></tr>
+                      <tr><td>7</td><td>Venkatesh R</td><td>2071</td><td>49</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                      <tr><td>8</td><td>K Ranjith</td><td>2033</td><td>48</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                      <tr><td>9</td><td>K.Kavigasri</td><td>1318</td><td>0</td><td>0</td><td>186</td><td>0</td><td>2247</td><td>0</td></tr>
+                      <tr><td>10</td><td>P Sumithradevi</td><td>2175</td><td>632</td><td>199</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                      <tr><td>11</td><td>V.Vigneshwaran</td><td>180</td><td>0</td><td>0</td><td>344</td><td>0</td><td>0</td><td>0</td></tr>
+                      <tr><td>12</td><td>T Thamizhazhagan</td><td>0</td><td>473</td><td>660</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                      <tr><td>13</td><td>Vigneshwar R</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                      <tr><td>14</td><td>Jesuraja.L</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                      <tr><td>15</td><td>R Rajeswari</td><td>1755</td><td>210</td><td>0</td><td>0</td><td>0</td><td>1297</td><td>0</td></tr>
+                      <tr><td>16</td><td>C Santhiya</td><td>697</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                      <tr><td>17</td><td>V Manimegalai</td><td>48</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                      <tr><td>18</td><td>V.RanjithKumar</td><td>0</td><td>47</td><td>0</td><td>0</td><td>4289</td><td>0</td><td>0</td></tr>
+                      <tr><td>19</td><td>T Mohana Priya</td><td>0</td><td>653</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                      <tr><td>20</td><td>M Ragamath Bargana</td><td>427</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                      <tr><td>21</td><td>T.Ragu</td><td>415</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                      <tr><td>22</td><td>M Meenaloshini</td><td>2577</td><td>0</td><td>2203</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+                      <!-- Add more rows as needed -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              
+
+
+
+
+            </div>
+                            
+
+
+          </div>
+
+
+
+        </div>
+        <!-- / Layout page -->
+      </div>
+      <!-- Overlay -->
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <!-- / Layout wrapper -->
+
+    <!-- Core JS -->
+     <script src="{% static 'assets/vendor/libs/jquery/jquery.js' %}"></script>
+      <script src="{% static 'assets/vendor/libs/popper/popper.js' %}"></script>
+      <script src="{% static 'assets/vendor/js/bootstrap.js' %}"></script>
+      <script src="{% static 'assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+      <script src="{% static 'assets/vendor/js/menu.js' %}"></script>
+    <!-- endbuild -->
+    <!-- Vendors JS -->
+    <script src="{% static 'assets/vendor/libs/apex-charts/apexcharts.js' %}"></script>
+    <!-- SweetAlert2 CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Main JS -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+    <!-- Page JS -->
+    <script src="{% static 'assets/js/dashboards-analytics.js' %}"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- Chart data Layout -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <style>
+    table { border-collapse: collapse; width: 100%; margin-bottom: 24px; }
+    th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: center; }
+    th { background: #7d3c98; color: #fff; }
+    .header-green { background: #256029; color: #fff; }
+    .header-yellow { background: #ffe066; color: #222; }
+    .header-pending { background: #ffe066; color: #d80000; }
+    .header-yellow { background: #ffe066; color: #222; }
+    .header-pending { background: #ffe066; color: #d80000; }
+    .header-status { background: #14abc5; color: #f5f3f3; }
+    .summary-row { font-weight: bold; background: #f3f6fd; }
+    .state-select { font-size: 1rem; padding: 2px 8px; margin-bottom: 8px; }
+    .state-label { font-weight: bold; color: #256029; margin-right: 8px; }
+  </style>
+    <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Set max date to today
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementById('fromDate').setAttribute('max', today);
+    document.getElementById('toDate').setAttribute('max', today);
+
+    var form = document.getElementById('dailyCompletedForm');
+    var fromDate = document.getElementById('fromDate');
+    var toDate = document.getElementById('toDate');
+    var errorDiv = document.getElementById('dailyCompletedError');
+    var applyBtn = document.getElementById('applyBtn');
+    var resetBtn = document.getElementById('resetBtn');
+    var exportBtn = document.getElementById('exportBtn');
+
+    function validateDates() {
+      errorDiv.textContent = '';
+      var from = fromDate.value;
+      var to = toDate.value;
+      if (!from || !to) {
+        errorDiv.textContent = 'Select From and To dates are required.';
+        return false;
+      }
+      if (from > to) {
+        errorDiv.textContent = 'From date cannot be after To date.';
+        return false;
+      }
+      if (from > today || to > today) {
+        errorDiv.textContent = 'Dates cannot be in the future.';
+        return false;
+      }
+      return true;
+    }
+
+    applyBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (validateDates()) {
+        // TODO: Implement filter logic (AJAX or form submit)
+        errorDiv.textContent = '';
+        // Example: alert('Filter applied!');
+      }
+    });
+
+    resetBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      fromDate.value = '';
+      toDate.value = '';
+      errorDiv.textContent = '';
+      // TODO: Implement reset logic (reload table or page)
+    });
+
+    exportBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (validateDates()) {
+        errorDiv.textContent = '';
+        // Find the Daily Completed Status table (the one after the filter form)
+        var table = exportBtn.closest('.card-body').querySelector('table');
+        if (!table) {
+          errorDiv.textContent = 'Table not found for export.';
+          return;
+        }
+        var wb = XLSX.utils.table_to_book(table, {sheet: "Daily Completed Status"});
+        XLSX.writeFile(wb, 'Daily_Completed_Status.xlsx');
+      }
+    });
+  });
+</script>
+  </body>
+</html>
+
+
+
+

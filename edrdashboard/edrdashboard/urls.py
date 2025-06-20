@@ -12,8 +12,7 @@ urlpatterns = [
     path('statustracking/', views.statustracking_page, name='statustracking'),
     path('tm_dmp/', views.tm_dmp, name='tm_dmp'),
     path('download_workunit_excel/', views.download_workunit_excel, name='download_workunit_excel'),
-    path('production-report/', views.production_report, name='production_report'),
-   
+    path('qc_summary/', views.qc_summary, name='qc_summary'),
     
     
 ]

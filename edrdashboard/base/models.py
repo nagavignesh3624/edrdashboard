@@ -1,6 +1,6 @@
 from django.db import models
 from datetime import date
-from django.db import models
+from collections import defaultdict
 
 class Employee(models.Model):
     # Update these fields to match your actual table columns
@@ -21,6 +21,8 @@ class WorkUnit(models.Model):
     siloc_status = models.CharField(max_length=50, null=True, blank=True)
     rfdb_completed_date = models.DateField(null=True, blank=True)
     priority = models.CharField(max_length=50)
+    rfdb_production_team_leader_emp_name = models.CharField(max_length=150, null=True, blank=True)
+    rfdb_production_status= models.CharField(max_length=50, null=True, blank=True)
 
     # Add other fields as needed
 
@@ -30,9 +32,8 @@ class WorkUnit(models.Model):
 
         
 class Production_inputs(models.Model):
-    
+    rfdb_completed_date = models.DateField(primary_key=True, unique=True)
     wu_received_date = models.DateField(null=True, blank=True)
-    rfdb_completed_date = models.DateField(unique=True)
     rfdb_production_status = models.CharField(max_length=50)  # Example: "Completed"
     rfdb_qc_status = models.CharField(max_length=50)  # Example: "Completed"
     rfdb_qc_completed_date = models.DateField(null=True, blank=True)
@@ -41,16 +42,6 @@ class Production_inputs(models.Model):
     delivery_date = models.DateField(null=True, blank=True)
     delivery_status = models.CharField(max_length=50, null=True, blank=True)
 
-
-    
-
-    input_received_count = models.IntegerField(default=0)
-    production_output = models.IntegerField(default=0)
-    siloc_output = models.IntegerField(default=0)
-    qc_output = models.IntegerField(default=0)
-    path_association_output = models.IntegerField(default=0)
-    delivery_count = models.IntegerField(default=0)
-
     class Meta:
         db_table = 'tm_production_inputs'
         ordering = ['rfdb_completed_date']  # oldest to newest
@@ -58,10 +49,17 @@ class Production_inputs(models.Model):
         verbose_name_plural = "Daily Production Inputs"
 
     def __str__(self):
-        return f"{self.rfdb_completed_date} - Prod: {self.production_output}"
-    
+        return f"{self.rfdb_completed_date} - {self.rfdb_production_status}"
 
-   
+
+
+
+
+
+
+
+
+
 
 
 

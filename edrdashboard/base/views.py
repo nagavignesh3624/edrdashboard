@@ -16,8 +16,6 @@ from django.db.models import Sum
 from collections import defaultdict
 # import sys
 
-
-
 # Create your views here.
 # def login_page(request):
 #     return render(request, 'auth-login-basic.html')
@@ -29,60 +27,52 @@ def account_page(request):
     return render(request, 'pages-account-settings-account.html')
 def dashboard_page(request):
     return render(request, 'index.html')
+def qc_summary(request):  
+  
+    return render(request, 'qc_summary.html')
+
+
 def get_workunit_context():
+    # Optimize by aggregating counts in fewer queries
     input_count = WorkUnit.objects.count()
     delivered_count = WorkUnit.objects.filter(delivery_status='Delivered').count()
     hold_count = WorkUnit.objects.filter(delivery_status='Hold').count()
-    production_yts_count = WorkUnit.objects.filter(rfdb_production_status='Yet to start').count()
-    production_ip_count = WorkUnit.objects.filter(rfdb_production_status='inprogress').count()
-    production_comp_count = WorkUnit.objects.filter(rfdb_production_status='Completed').count()
-    production_hold_count = WorkUnit.objects.filter(rfdb_production_status='Hold').count()
-    production_qcrejected_count = WorkUnit.objects.filter(rfdb_production_status='Qc Rejected').count()
-    production_reworkcomp_count = WorkUnit.objects.filter(rfdb_production_status='Rework Comp').count()
-    production_doubt_count = WorkUnit.objects.filter(rfdb_production_status='Doubt_Case').count()
-    siloc_yts_count = WorkUnit.objects.filter(siloc_status='Yet to start').count()
-    siloc_ip_count = WorkUnit.objects.filter(siloc_status='inprogress').count()
-    siloc_comp_count = WorkUnit.objects.filter(siloc_status='Completed').count()
-    siloc_hold_count = WorkUnit.objects.filter(siloc_status='Hold').count()
-    siloc_qcrejected_count = WorkUnit.objects.filter(siloc_status='Qc Rejected').count()
-    siloc_reworkcomp_count = WorkUnit.objects.filter(siloc_status='Rework Comp').count()
-    siloc_doubt_count = WorkUnit.objects.filter(siloc_status='Doubt').count()
-    qc_yts_count = WorkUnit.objects.filter(rfdb_qc_status='Yts').count()
-    qc_ip_count = WorkUnit.objects.filter(rfdb_qc_status='inprogres').count()
-    qc_comp_count = WorkUnit.objects.filter(rfdb_qc_status='Completed').count()
-    qc_hold_count = WorkUnit.objects.filter(rfdb_qc_status='Hold').count()
-    qc_qcrejected_count = WorkUnit.objects.filter(rfdb_qc_status='Qc Rejected').count()
-    qc_reworkcomp_count = WorkUnit.objects.filter(rfdb_qc_status='Rework Comp').count()
-    qc_doubt_count = WorkUnit.objects.filter(rfdb_qc_status='Doubt').count()
-
     undelivered_count = input_count - (delivered_count + hold_count)
+
+    # Use values and annotate for each status field, fix PK field
+    prod_status_counts = dict(WorkUnit.objects.values_list('rfdb_production_status').annotate(c=Count('wu_intersection_node_id')))
+    siloc_status_counts = dict(WorkUnit.objects.values_list('siloc_status').annotate(c=Count('wu_intersection_node_id')))
+    qc_status_counts = dict(WorkUnit.objects.values_list('rfdb_qc_status').annotate(c=Count('wu_intersection_node_id')))
+
+    def get_count(d, key):
+        return d.get(key, 0)
 
     return {
         'input_count': input_count,
         'delivered_count': delivered_count,
         'hold_count': hold_count,
         'undelivered_count': undelivered_count,
-        'production_yts_count': production_yts_count,
-        'production_ip_count': production_ip_count, 
-        'production_comp_count': production_comp_count,
-        'production_hold_count': production_hold_count,
-        'production_qcrejected_count': production_qcrejected_count,
-        'production_reworkcomp_count': production_reworkcomp_count,
-        'production_doubt_count': production_doubt_count,
-        'siloc_yts_count': siloc_yts_count,
-        'siloc_ip_count': siloc_ip_count, 
-        'siloc_comp_count': siloc_comp_count,
-        'siloc_hold_count': siloc_hold_count,
-        'siloc_qcrejected_count': siloc_qcrejected_count,
-        'siloc_reworkcomp_count': siloc_reworkcomp_count,
-        'siloc_doubt_count': siloc_doubt_count,
-        'qc_yts_count': qc_yts_count,
-        'qc_ip_count': qc_ip_count, 
-        'qc_comp_count': qc_comp_count,
-        'qc_hold_count': qc_hold_count,
-        'qc_qcrejected_count': qc_qcrejected_count,
-        'qc_reworkcomp_count': qc_reworkcomp_count,
-        'qc_doubt_count': qc_doubt_count
+        'production_yts_count': get_count(prod_status_counts, 'Yet to start'),
+        'production_ip_count': get_count(prod_status_counts, 'Inprogress'),
+        'production_comp_count': get_count(prod_status_counts, 'Completed'),
+        'production_hold_count': get_count(prod_status_counts, 'Hold'),
+        'production_qcrejected_count': get_count(prod_status_counts, 'QC_Rejected'),
+        'production_reworkcomp_count': get_count(prod_status_counts, 'Rework_Completed'),
+        'production_doubt_count': get_count(prod_status_counts, 'Doubt_Case'),
+        'siloc_yts_count': get_count(siloc_status_counts, 'Yet to start'),
+        'siloc_ip_count': get_count(siloc_status_counts, 'Inprogress'),
+        'siloc_comp_count': get_count(siloc_status_counts, 'Completed'),
+        'siloc_hold_count': get_count(siloc_status_counts, 'Hold'),
+        'siloc_qcrejected_count': get_count(siloc_status_counts, 'QC_Rejected'),
+        'siloc_reworkcomp_count': get_count(siloc_status_counts, 'Rework_Completed'),
+        'siloc_doubt_count': get_count(siloc_status_counts, 'Doubt_Case'),
+        'qc_yts_count': get_count(qc_status_counts, 'Yet to start'),
+        'qc_ip_count': get_count(qc_status_counts, 'Inprogress'),
+        'qc_comp_count': get_count(qc_status_counts, 'Completed'),
+        'qc_hold_count': get_count(qc_status_counts, 'Hold'),
+        'qc_qcrejected_count': get_count(qc_status_counts, 'QC_Rejected'),
+        'qc_reworkcomp_count': get_count(qc_status_counts, 'Rework_Completed'),
+        'qc_doubt_count': get_count(qc_status_counts, 'Doubt_Case'),
     }
 
 # your two views can now reuse that data
@@ -96,6 +86,64 @@ def statustracking_page(request):
 
 def tm_dmp(request):
     context = get_workunit_context()
+    from_date_str = request.GET.get('from_date')
+    to_date_str = request.GET.get('to_date')
+    records_by_day = []
+    if from_date_str and to_date_str:
+        try:
+            from datetime import datetime, timedelta
+            from_date = datetime.strptime(from_date_str, "%Y-%m-%d").date()
+            to_date = datetime.strptime(to_date_str, "%Y-%m-%d").date()
+            if from_date > to_date:
+                context['records'] = []
+                context['from_date'] = from_date_str
+                context['to_date'] = to_date_str
+                return render(request, 'tm_dmp.html', context)
+            # Optimize: fetch all relevant Production_inputs in one query
+            qs = Production_inputs.objects.filter(
+                Q(wu_received_date__range=(from_date, to_date)) |
+                Q(rfdb_completed_date__range=(from_date, to_date)) |
+                Q(rfdb_qc_completed_date__range=(from_date, to_date)) |
+                Q(siloc_completed_date__range=(from_date, to_date)) |
+                Q(delivery_date__range=(from_date, to_date))
+            )
+            # Build a dict of days
+            day_map = {}
+            current_date = from_date
+            while current_date <= to_date:
+                day_map[current_date] = {
+                    'date': current_date,
+                    'input_received_count': 0,
+                    'production_output': 0,
+                    'siloc_output': 0,
+                    'qc_output': 0,
+                    'path_association_output': 0,
+                    'delivery_count': 0
+                }
+                current_date += timedelta(days=1)
+            for obj in qs:
+                if obj.wu_received_date and from_date <= obj.wu_received_date <= to_date:
+                    day_map[obj.wu_received_date]['input_received_count'] += 1
+                if obj.rfdb_completed_date and from_date <= obj.rfdb_completed_date <= to_date and obj.rfdb_production_status == 'Completed':
+                    day_map[obj.rfdb_completed_date]['production_output'] += 1
+                if obj.siloc_completed_date and from_date <= obj.siloc_completed_date <= to_date and obj.siloc_status == 'Completed':
+                    day_map[obj.siloc_completed_date]['siloc_output'] += 1
+                if obj.rfdb_qc_completed_date and from_date <= obj.rfdb_qc_completed_date <= to_date and obj.rfdb_qc_status == 'Completed':
+                    day_map[obj.rfdb_qc_completed_date]['qc_output'] += 1
+                if obj.delivery_date and from_date <= obj.delivery_date <= to_date and obj.delivery_status == 'Delivered':
+                    day_map[obj.delivery_date]['delivery_count'] += 1
+            context['records'] = [day_map[d] for d in sorted(day_map)]
+            context['from_date'] = from_date_str
+            context['to_date'] = to_date_str
+        except ValueError:
+            context['records'] = []
+            context['from_date'] = from_date_str
+            context['to_date'] = to_date_str
+            return render(request, 'tm_dmp.html', context)
+    else:
+        context['records'] = []
+        context['from_date'] = ''
+        context['to_date'] = ''
     return render(request, 'tm_dmp.html', context)
 
 
@@ -137,76 +185,46 @@ def download_workunit_excel(request):
 
 
 
-def production_report(request):
-    from_date_str = request.GET.get('from_date')
-    to_date_str = request.GET.get('to_date')
+def statustracking(request):
+    # ...existing code...
+    production_inputs = WorkUnit.objects.all()
+    tl_stats = {}
+    print(production_tl_status)
 
-    records_by_day = []
+    for inp in production_inputs:
+        name = (inp.rfdb_production_team_leader_emp_name or '').strip()
+        status = (inp.rfdb_production_status or '').strip().lower()
+        if not name:
+            continue
+        if name not in tl_stats:
+            tl_stats[name] = {
+                'Yet to start': 0, 'Inprogress': 0, 'Completed': 0, 'Hold': 0, 'QC_Rejected': 0, 'Rework_Completed': 0, 'Doubt_Case': 0
+            }
+        if status == 'yet to start':
+            tl_stats[name]['Yet to start'] += 1
+        elif status == 'inprogress':
+            tl_stats[name]['Inprogress'] += 1
+        elif status == 'completed':
+            tl_stats[name]['Completed'] += 1
+        elif status == 'hold':
+            tl_stats[name]['Hold'] += 1
+        elif status == 'qc_rejected':
+            tl_stats[name]['QC_Rejected'] += 1
+        elif status == 'rework_completed':
+            tl_stats[name]['Rework_Completed'] += 1
+        elif status in ('doubt_case', 'doubt_case'):
+            tl_stats[name]['Doubt_Case'] += 1
 
-    if from_date_str and to_date_str:
-        try:
-            from_date = datetime.strptime(from_date_str, "%Y-%m-%d").date()
-            to_date = datetime.strptime(to_date_str, "%Y-%m-%d").date()
-            # Ensure from_date is before to_date
-            # print("From:", from_date_str, "| To:", to_date_str)
+    production_tl_status = [
+        {'name': name, **stats} for name, stats in tl_stats.items()
+    ]
+    print(production_tl_status)
+    context = {
+        # ...existing context...
+        'production_tl_status': production_tl_status,
+    }
+    return render(request, 'statustracking.html', context)
 
-            if from_date > to_date:
-                return JsonResponse({'error': 'From date must be before To date'}, status=400)
-            # Initialize records_by_day with dates in the range
-            current_date = from_date
-            while current_date <= to_date:
-                production_count = Production_inputs.objects.filter(
-                    rfdb_production_status='Completed',
-                    rfdb_completed_date=current_date
-                ).count()
-
-                qc_count = Production_inputs.objects.filter(
-                    rfdb_qc_status='Completed',
-                    rfdb_qc_completed_date=current_date
-                ).count()
-                
-                siloc_count = Production_inputs.objects.filter(
-                    siloc_status ='Completed',
-                    siloc_completed_date =current_date
-                ).count()
-                
-                input_received_count = Production_inputs.objects.filter(
-                    wu_received_date=current_date
-                ).count()
-
-                delivery_count = Production_inputs.objects.filter(
-                    delivery_status='Delivered',
-                    delivery_date=current_date
-                ).count()
-
-
-
-                # 🔍 Add this line for debugging
-                # print(f"Date: {current_date} | Production: {production_count} | QC: {qc_count}", file=sys.stdout)
-                # sys.stdout.flush()
-
-                
-
-                records_by_day.append({
-                    'date': current_date,                    
-                    'input_received_count': input_received_count,
-                    'production_output': production_count,
-                    'siloc_output': siloc_count,
-                    'qc_output': qc_count,
-                    'path_association_output': 0,
-                    'delivery_count': delivery_count
-                })
-                current_date += timedelta(days=1)
-    
-          
-        except ValueError:
-            return JsonResponse({'error': 'Invalid date format. Use YYYY-MM-DD.'}, status=400)
-
-    return render(request, 'tm_dmp.html', {
-        'records': sorted(records_by_day, key=lambda x: x['date']),
-        'from_date': from_date_str,
-        'to_date': to_date_str,
-    })
 
 
 
